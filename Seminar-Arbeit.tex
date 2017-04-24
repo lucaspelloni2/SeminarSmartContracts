@@ -18,7 +18,7 @@ It fits pretty much on one page and is definitely not longer.}
 
 
 \section{Blockchain Technology}
-\subsection{What is a Blockchain?}
+\subsection{Definition of Blockchain}
 A blockchain is like a distributed database which constantly keeps a list of transaction or records, that have ever been executed, called usually blocks. Every record contains a reference to its predecessor and a timestamp. \cite{wikipedia1}
 Data in a record cannot be changed due to its design. This makes them tampering-proof and a very good source of trust for the near future. \cite{blockchain3}
 The blockchain works and is maintained by the entire community, which verifies all records and acts like a node of a peer-to-peer network, making the need of a thirty part trust organisation useless. \cite{blockchain0}
@@ -62,13 +62,22 @@ The most famous application of blockchain is in online trades where it gets used
 \section{Smart Contract: Introduction}
 \subsection{Smart Contract: a self-executing contractual agreements}
 %definition founded here: https://www.youtube.com/watch?v=FkeLDPZ-v8g&t=134s
-A Smart Contract is a piece of software that stores rules for negotiating the terms of a contract, automatically verifies the contract and then executes the agreed terms. 
-
+A Smart Contract is a computer protocol (or piece of software) that includes, simplifies and verifies the negotiating terms for the execution of a contract. They do not contain a formal contract clause but they usually simulate it.
+Smart Contracts are encrypted and implemented as programs running on the nodes of a custom public blockchain network, which is not the same used for Bitcoins transactions. Thanks to their encryption, an external trusted authority is no longer needed and thanks to the redundancy of the blockchain across the network, there will not be any loss of data or integrity in case of a system failure.
+If a new Smart Contract has to be added to the blockchain, the miners, which are the actual nodes of the peer to peer network, have first to validate its execution and only once it has been validated by the majority of them, it can be actually appended to the blockchain.
 %https://bitsonblocks.net/2016/02/01/a-gentle-introduction-to-smart-contracts/%
 \subsubsection{Traditional vs. Smart Contract}
 
 \subsection{Ethereum: a public blockchain-based platform}
-Smart contract applications based on public blockchains.
+Ethereum is a platform for the publication and the execution of Smart Contracts. It is decentralized INSERIRE PAPER and executes the Smart Contracts as programmed from their creator.
+It has a own cryptovalue called Ether which is used as payment for the execution of Smart Contracts.
+At the 24th of April 2017, the value of the currency compared to Bitcoins corresponded to CONTINUA
+Ethereum's contracts are written in Solidity, which is an objected-oriented language programming language, similar to Java, and it is exclusively designed for coding Smart Contracts.
+The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytecode) and deployed finally on the Ethereum blockchain 
+
+\subsection{Smart Contract's properties in Ethereum}
+In this section we will have a look at the key components that can be found inside a Smart Contract.
+
 
 
 \subsubsection{Solidity: a typed JavaScript-like language}
