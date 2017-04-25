@@ -1,5 +1,5 @@
 \chapter{Security Challenges in Smart Constracts}
-\markboth{Title of My Seminar Work}{}
+\markboth{Security Challenges in Smart Constracts}{}
 \chaptauthors{Lucas Pelloni and Ile Cepilov}
 
 \Kurzfassung{%
@@ -85,15 +85,47 @@ In this section we will have a look at the key components that can be found insi
 
 \section{Smart Contract attacks}
 
-\subsection{DAO: First Attack}
+\subsection{DAO Attack}
 \subsubsection{Attack description}
-\subsubsection{Exploited vulnerability}
+One of the most famous attack on Smart Contracts was the DAO Attack (Decentralised Autonomous Organisation).
+%https://www.wired.com/2016/06/50-million-hack-just-showed-dao-human/
+The DAO was a crowd-funding project which, like traditional mutual funds, allows investors or "members" to purchase shares and enjoy returns based on its performance.
+On 17 June 2016, the attacker managed to steal 3.6 Milion Ether\footnote{Corresponding to USD 60 million} from the Ethereum's platform and putting them into a personal account. \\ %http://www.clydeco.com/insight/article/ethereums-dao-attack-smart-contracts-and-blockchain-face-their-first-big-te
+Due to the strong impact of this attack to the Etherum platform, the value of the Ether currency drastically dropped from 20.5 USD to 11.20 USD (cita: %http://uk.businessinsider.com/dao-hacked-ethereum-crashing-in-value-tens-of-millions-allegedly-stolen-2016-6
+). \\
+We now consider only a streamlined version of the DAO attack, also called \textbf{SimpleDAO}, which is the first of the two known DAO attacks and has some common characteristics to the original one. The attack described below allows the hacker to siphon all the ether contained within the \textbf{SimpleDAO} Smart Contract.\cite{paper2} \\
+The first thing the attacker has to do is to publish a \textbf{Mallory} Contract (as shown below): 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.45]{Talk3/img/dao1}
+\end{center}
+\caption{Dao Attack: the Mallory contract}
+\label{label}
+\end{figure}
+%https://github.com/chriseth/solidity-doc-test/blob/master/docs/frequently-asked-questions.rst
+After publishing the contract, the hacker sent some Ether to Mallory and automatically invokes the Mallory Fallback\footnote{A Fallback is just a function without any name or parameter, which is called by default if some ether is sent to a contract. (cita) } (line 16, \textbf{Mallory}). \\
+The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function written in the \textbf{SimpleDAO}\footnote{The whole Smart Contract's code is findable here: http://co2.unica.it/ethereum/attacks.html\#simpledao} contract (figure below), which is in charge of sending an amount of Ether to a specified public address. 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.45]{Talk3/img/dao2}
+\end{center}
+\caption{Dao Attack: the SimpleDAO contract}
+\label{label}
+\end{figure}
+Since the \textbf{withdraw} function of the \textbf{SimpleDAO} has been invoked by the \textbf{Mallory} fallback, it simply sends the Ether to Mallory (line 6, \textbf{SimpleDAO}). By sending the Ether to \textbf{Mallory}, the \textbf{Mallory}'s fallback gets invoked again. As a consequence, the \textbf{withdraw} function transfers the specified amount of Ether to \textbf{Mallory} for the second time. The flaw of this sequence of function calls resides at the line 9 of the \textbf{SimpleDAO} contract, where the real amount of Ether stored within the contract gets never updated. 
+This kind of loop goes on until one of the following conditions is satisfied: \\
+\begin{enumerate}
+%cita nella footnote: https://www.cryptocompare.com/coins/guides/what-is-the-gas-in-ethereum/
+\item The gas is exhausted\footnote{Internal fee in Ethereum paid to the miners, proportional to their power computation}
+\item Call Stack is full
+\item Balance of DAO gets down to zero  
+\end{enumerate}
+
+
+
+
 \subsubsection{Possible solution}
 
-\subsection{DAO: Second Attack}
-\subsubsection{Attack description}
-\subsubsection{Exploited vulnerability}
-\subsubsection{Possible solution}
 
 \subsection{King of The Ether Throne Attack}
 \subsubsection{Attack description}
@@ -137,7 +169,7 @@ Blablabla said asfbzasfubasbusauhfhu \cite{WinNT}.
 
 \bibitem{paper1}Loi Luu, Duc-Hiep Chu, Hrishi Olickel, Prateek Saxena, Aquinas Hobor: \emph{Making Smart Contracts Smarter.}. October 2016. \url{http://delivery.acm.org/10.1145/2980000/2978309/p254-luu.pdf?ip=195.176.96.218&id=2978309&acc=ACTIVE\%20SERVICE&key=FC66C24E42F07228\%2EA04051DB0C098788\%2E4D4702B0C3E38B35\%2E4D4702B0C3E38B35&CFID=926344688&CFTOKEN=88107312&__acm__=1492712435_d0f0d96ea04f8cf077c9b90253210778} (last accessed February 2016)
 
-\bibitem{paper1}Atzei, Nicola and Bartoletti, Massimo and Cimoli, Tiziana: \emph{A survey of attacks on Ethereum smart contracts.} 2016. Cryptology ePrint Archive: Report 2016/1007, https://eprint. iacr. org/2016/1007 \url{https://eprint.iacr.org/2016/1007.pdf} (last accessed February 2017)
+\bibitem{paper2}Atzei, Nicola and Bartoletti, Massimo and Cimoli, Tiziana: \emph{A survey of attacks on Ethereum smart contracts.} 2016. Cryptology ePrint Archive: Report 2016/1007, https://eprint. iacr. org/2016/1007 \url{https://eprint.iacr.org/2016/1007.pdf} (last accessed February 2017)
 
 \bibitem{blockchain3}Investopedia: \emph{What is a Blockchain.} \url{http://www.investopedia.com/terms/b/blockchain.asp} (last accessed March 2017)
 
