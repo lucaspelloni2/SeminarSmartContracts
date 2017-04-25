@@ -103,6 +103,7 @@ The first thing the attacker has to do is to publish a \textbf{Mallory} Contract
 \label{label}
 \end{figure}
 %https://github.com/chriseth/solidity-doc-test/blob/master/docs/frequently-asked-questions.rst
+%http://solidity.readthedocs.io/en/latest/frequently-asked-questions.html
 After publishing the contract, the hacker sent some Ether to Mallory and automatically invokes the Mallory Fallback\footnote{A Fallback is just a function without any name or parameter, which is called by default if some ether is sent to a contract. (cita) } (line 16, \textbf{Mallory}). \\
 The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function written in the \textbf{SimpleDAO}\footnote{The whole Smart Contract's code is findable here: http://co2.unica.it/ethereum/attacks.html\#simpledao} contract (figure below), which is in charge of sending an amount of Ether to a specified public address. 
 \begin{figure}[H]
@@ -112,7 +113,7 @@ The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function w
 \caption{Dao Attack: the SimpleDAO contract}
 \label{label}
 \end{figure}
-Since the \textbf{withdraw} function of the \textbf{SimpleDAO} has been invoked by the \textbf{Mallory} fallback, it simply sends the Ether to Mallory (line 6, \textbf{SimpleDAO}). By sending the Ether to \textbf{Mallory}, the \textbf{Mallory}'s fallback gets invoked again. As a consequence, the \textbf{withdraw} function transfers the specified amount of Ether to \textbf{Mallory} for the second time. The flaw of this sequence of function calls resides at the line 9 of the \textbf{SimpleDAO} contract, where the real amount of Ether stored within the contract gets never updated. 
+Since the \textbf{withdraw} function of the \textbf{SimpleDAO} has been invoked by the \textbf{Mallory} fallback, it simply sends the Ether to Mallory (line 6, \textbf{SimpleDAO}). By sending the Ether to \textbf{Mallory}, the \textbf{Mallory}'s fallback gets invoked again. As a consequence, the \textbf{withdraw} function transfers the specified amount of Ether to \textbf{Mallory} for the second time. The flaw of this sequence of function calls resides at line 9 of the \textbf{SimpleDAO} contract, where the real amount of Ether stored within the contract gets never updated. 
 This kind of loop goes on until one of the following conditions is satisfied: \\
 \begin{enumerate}
 %cita nella footnote: https://www.cryptocompare.com/coins/guides/what-is-the-gas-in-ethereum/
@@ -126,12 +127,6 @@ This kind of loop goes on until one of the following conditions is satisfied: \\
 
 \subsubsection{Possible solution}
 
-
-\subsection{King of The Ether Throne Attack}
-\subsubsection{Attack description}
-\subsubsection{Exploited vulnerability}
-\subsubsection{Possible solution}
-
 \subsection{MultiPlayer Attack}
 \subsubsection{Attack description}
 \subsubsection{Exploited vulnerability}
@@ -140,6 +135,63 @@ This kind of loop goes on until one of the following conditions is satisfied: \\
 \subsection{Rubixi Attack}
 \subsubsection{Attack description}
 \subsubsection{Exploited vulnerability}
+\subsubsection{Possible solution}
+
+
+%sito originale: https://www.kingoftheether.com
+%Post mordem: https://www.kingoftheether.com/postmortem.html
+%source code: https://github.com/kieranelby/KingOfTheEtherThrone/blob/v0.4.0/contracts/KingOfTheEtherThrone.sol
+
+\subsection{King of The Ether Throne}
+The "King of the Ether" (or "King of the Ether Throne") is an Ethereum contract, stored on the blockchain, which implements a very simple game. cita: % https://www.kingoftheether.com 
+The game's goal is to become the "King/Queen of the Ether". In order to make that possible, a player who wants to join the game has to pay an amount of Ether greater that the current claimprice. If the amount is greater, this player becomes the new King and a small fee has to be computed and paid to the old king. 
+When a new King gets crowned, the claimprice is calculated and set as new prize of the game. The prize logically increases each time a new king is crowned \cite{paper2}. \\
+
+\subsubsection{First Attack description}
+For a proper explanation of this attack, consider the following \textbf{KotET} contract, which implements a simplified version of the original contract\footnote{the whole code can be found here: http://co2.unica.it/ethereum/attacks.html\#kotet}.   
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{Talk3/img/kot}
+\end{center}
+\caption{First KotET contract}
+\label{label}
+\end{figure}
+Whenever a new player sends some Ether to the \textbf{KotET} contract, the fallback function gets invoked by default (line 9). The first "if-statement" inside the fallback function checks whether the sent Ether is greater that the current claimprice, otherwise an exception gets thrown and the whole transaction gets reverted. If the amount is enough, the compensation for the old king is computed and sent to him (line 11, 12). After that, the current player is crowned as new king and the new prize is calculated and stored inside the contract\cite{paper2}. \\
+The flaw exploited in this attack resides at line 12. For this contract doesn't exist a control in the \textbf{return code} of the \textbf{send} function (cita) %da citare http://co2.unica.it/ethereum/attacks.html\#kotet 
+and this may cause a lost of Ether.
+If there would be someone, who wants to attack this contract, he could require much more gas for the \textbf{send} compensation function (which means, that his \textbf{fallback} function would be very expensive) (cita quello sopra). Indoing so, the function call at line 12 may fail and since there is no check in the return code (the \textbf{send} does not cause any exception) the compensation for the old king will thus remain by the contract, even in the case of a new crowned king. 
+After that, the attacker could easily withdraw the compensation accumulated in the contract (via \textbf{sweepCommission}, at line 6).  
+
+%cita questo: https://www.kingoftheether.com/contract-safety-checklist.html
+\subsubsection{Possible solution}
+The solution adapted by Ethereum to avoid future attacks is also known as the "failed sends" solution (cita). It consists of an attachment of a reasonable amount of gas with each transaction involving two or more parties (cita ancora). 
+For example, if a miner would have a very expensive fallback function, an exception should be thrown and the whole transaction should be reverted. \\ For testing the accuracy of this solution Ethereum runned several functional tests\footnote{the simulated test cases described in th Ethereum on-chain report can be found here: https://github.com/kieranelby/KingOfTheEtherThrone/blob/v1.0/tests/onchain-test-report.md}, trying to cover the largest number of possible scenarios. 
+
+
+\subsubsection{Second Attack description}
+For making our explanation easier to understand, consider also in this case the following semplified \textbf{KotET} contract: 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.3]{Talk3/img/kot2}
+\end{center}
+\caption{Second KotET contract}
+\label{label}
+\end{figure}
+As highlighted in the contract above, the only difference between the first KotET contract (mentioned in the paragraph above) and this contract resides in the \textbf{fallback function}, more specifically in the method with whom the compensation is sent to the old king. Indeed, the first contract implements a \textbf{send function}, while the second one uses a \textbf{call function} for transfering an amount of Ether. A \textbf{send} function is usually equipped with some gas\footnote{normally 2300 gas}, while a \textbf{call function} does not use any gas (cita). 
+%difference between call/send: https://ethereum.stackexchange.com/questions/6470/send-vs-call-differences-and-when-to-use-and-when-not-to-use
+Moreover, the second contract checks the return code of the \textbf{call} function and even though it should be more reliable that the first one, it can be also hacked. \\
+Let's suppose that there would be someone, who wants to attack this contract publishing the following \textbf{Mallory} contract: 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{Talk3/img/kot_mallory}
+\end{center}
+\caption{The KotET Mallory contract}
+\label{label}
+\end{figure}
+
+This contract Mallory has a fallback, which just throws an exception. The hacker calls \textbf{unseatKing} with the right amount of Ether, so that Mallory becomes the new king. 
+At this point, nobody else can get her crown, since every time \textbf{KotET} tries to send the compensation to Mallory, her fallback throws an exception, preventing the coronation to succeed. 
+
 \subsubsection{Possible solution}
 
 \subsection{Govern-Mental: First Attack}
