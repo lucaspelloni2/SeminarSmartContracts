@@ -77,11 +77,27 @@ The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytec
 
 \subsection{Smart Contract's properties in Ethereum}
 In this section we will have a look at the key components that can be found inside a Smart Contract.
+A Smart Contract must always have a {\itshape contract address} 
+%PAPER 633.pdf% asddd
+which can be used to identify it. It may contain some amount of Ether (The virtual coin used in Ethereum) in its {\itshape balance} attribute.
+\\It has a very important function which does not take any parameter at all, i.e. the so called {\itshape Fallback} function(). This function will be triggered by default when a contract is invoked by a transaction.
+\\It is very important because, as we will see in the next sections, it has been exploited a lot in the most famous attacks.
+\\Of course, some more informations have to be stored in it, like who the sender is, the amount of Ether that is sent to the contract and some more info for the transaction. All this data are saved in a variable {\textit msg.}
+%http://www.coinfox.info/news/reviews/5195-ethereum-and-smart-contracts-in-depth
+\\Now we would like to introduce the Gas system. The gas is used to express the cost of a computation done by the EVM, which in turn will be payed in the currency (Ether). Even though the actual currency may variate, the price of the network resources (Gas) stays constant.
+\\The gas is divided in three main component, {\textit the Gas Cost, the Gas Price and the Gas Limit.}
+\\The Gas Cost has a static value over time, whereas the Gas Price, measured in ether, changes accordingly to the cryptocurrency's fluctuation. But like we said before, the real cost of the Gas should remain the same, which means that an increase of the price of ether will have as a consequence a drop down of the Gas Price.
+\\When somebody sends a transaction to invoke a contract, he has to specify hos much Gas he/she is willing to provide for its execution (Gas Limit). 
+%To run a particular transaction or program (called “contract”), one has to pay an amount of Gas (called Gas %Fee) to miners. There is a list of fixed default fees for particular operations 
+
 
 
 
 \subsubsection{Solidity: a typed JavaScript-like language}
-
+TODO: CONTROLLARE LA VALIDITA 
+As introduced in Ethereum, Solidity is a object-oriented programming language for writing smart contracts and it can be used on various blockchain even though it is used as the primary language on the Ethereum platform.
+%https://en.wikipedia.org/wiki/Solidity
+\\It was first proposed in August 2014 by Gavin Wood and developed later by the Ethereum project's Solidity team (CITA MEEENCHIA)
 
 \section{Smart Contract attacks}
 
@@ -104,7 +120,7 @@ The first thing the attacker has to do is to publish a \textbf{Mallory} Contract
 \end{figure}
 %https://github.com/chriseth/solidity-doc-test/blob/master/docs/frequently-asked-questions.rst
 %http://solidity.readthedocs.io/en/latest/frequently-asked-questions.html
-After publishing the contract, the hacker sent some Ether to Mallory and automatically invokes the Mallory Fallback\footnote{A Fallback is just a function without any name or parameter, which is called by default if some ether is sent to a contract. (cita) } (line 16, \textbf{Mallory}). \\
+After publishing the contract, the hacker sends some Ether to Mallory and automatically invokes the Mallory Fallback\footnote{A Fallback is just a function without any name or parameter, which is called by default if some ether is sent to a contract. (cita) } (line 16, \textbf{Mallory}). \\
 The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function written in the \textbf{SimpleDAO}\footnote{The whole Smart Contract's code is findable here: http://co2.unica.it/ethereum/attacks.html\#simpledao} contract (figure below), which is in charge of sending an amount of Ether to a specified public address. 
 \begin{figure}[H]
 \begin{center}
@@ -125,8 +141,15 @@ This kind of loop goes on until one of the following conditions is satisfied: \\
 
 
 
-\subsubsection{Possible solution}
 
+\subsubsection{No solutions, only countermeasures}
+Sadly, there was a lack of solutions for stopping this attack. The only possible choice was to suppress the attack and the community was faced with two of them.
+\\A first choice was to do a {\textit Soft fork} which consisted in freezing the transaction that belonged to the attacker. But not the majority of the whole community agreed with it and more important, the transactions that were used by the attacker in order to move the stolen funds, would have ignored and not reverted and therefore the miners would not have been paid
+\\Moreover, in doing so, a potential DOS attack would have been introduced. 
+(cit:)
+%https://steemit.com/crypto-news/@help-yourself/the-dao-soft-fork-solution-has-a-potential-dos-vector
+Specifically, an attacker can flood the network with transactions that execute difficult computation, and end by performing an operation on the DAO contract. Miners running the soft fork would end up having to execute, and then subsequently discard, such contracts without collecting any fees.
+\\Therefore a {\textit Soft fork} was proposed and approved on the 19th of July. Its intention was to put into a new refund Smart Contract all the ether taken by the attacker during the attack. The refund Smart Contract would have only one functions withdraw allowing the poor victims get back their stolen funds.
 \subsection{MultiPlayer Attack}
 \subsubsection{Attack description}
 \subsubsection{Exploited vulnerability}
