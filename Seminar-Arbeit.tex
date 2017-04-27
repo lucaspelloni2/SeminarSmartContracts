@@ -40,12 +40,12 @@ Application built with Bloch chain technlogy do not require  users to trust the 
 %https://www2.deloitte.com/nl/nl/pages/innovatie/artikelen/blockchain-technology-9-benefits-and-7-challenges.html
 \subsection{Benefits of Blockchain Technology}
 Every technology that is centralized offers somewhere a point of failure which might be exploited by attackers and nowadays, banks are normally used by most people as a trusted middleman in order to make transaction.
-Thanks to its decentralizations, blockchain will avoid the need of a trusted middleman to make transaction by connecting directly buyers and sellers\cite{blockchain4}
+Thanks to its decentralizations, blockchain will avoid the need of a trusted middleman to make transaction by connecting directly buyers and sellers.
 %TODO
 
 %http://www.huffingtonpost.com/ameer-rosic-/5-blockchain-applications_b_13279010.html
 \subsection{Blockchain applications}
-The most famous application of blockchain is in online trades where it gets used for transfering a cryptovalue, bitcoins.\cite{blockchain8}
+The most famous application of blockchain is in online trades where it gets used for transfering a cryptovalue, bitcoins.
 %TODO 
 
 
@@ -64,11 +64,9 @@ some text\cite{blockchain11}
 \section{Smart Contract: Introduction}
 \subsection{Smart Contract: a self-executing contractual agreements}
 %definition founded here: https://www.youtube.com/watch?v=FkeLDPZ-v8g&t=134s
-A Smart Contract is a computer protocol (or piece of software) that includes, simplifies and verifies the negotiating terms for the execution of a contract. They do not contain a formal contract clause but they usually simulate it.\cite{SC1}
+A Smart Contract is a computer protocol (or piece of software) that includes, simplifies and verifies the negotiating terms for the execution of a contract. They do not contain a formal contract clause but they usually simulate it.
 Smart Contracts are encrypted and implemented as programs running on the nodes of a custom public blockchain network, which is not the same used for Bitcoins transactions. Thanks to their encryption, an external trusted authority is no longer needed and thanks to the redundancy of the blockchain across the network, there will not be any loss of data or integrity in case of a system failure.
-If a new Smart Contract has to be added to the blockchain, the miners, which are the actual nodes of the peer to peer network, have first to validate its execution and only once it has been validated by the majority of them, it can be actually appended to the blockchain. \cite{SC2}
-
-
+If a new Smart Contract has to be added to the blockchain, the miners, which are the actual nodes of the peer to peer network, have first to validate its execution and only once it has been validated by the majority of them, it can be actually appended to the blockchain\cite{SC2}.
 %https://bitsonblocks.net/2016/02/01/a-gentle-introduction-to-smart-contracts/%
 \subsubsection{Traditional vs. Smart Contract}
 
@@ -81,11 +79,28 @@ Ethereum's contracts are written in Solidity, which is an objected-oriented lang
 The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytecode) and deployed finally on the Ethereum blockchain 
 
 \subsection{Smart Contract's properties in Ethereum}
-tr
+In this section we will have a look at the key components that can be found inside a Smart Contract.
+A Smart Contract must always have a {\itshape contract address} 
+%PAPER 633.pdf% asddd
+which can be used to identify it. It may contain some amount of Ether (The virtual coin used in Ethereum) in its {\itshape balance} attribute.
+\\It has a very important function which does not take any parameter at all, i.e. the so called {\itshape Fallback} function(). This function will be triggered by default when a contract is invoked by a transaction.
+\\It is very important because, as we will see in the next sections, it has been exploited a lot in the most famous attacks.
+\\Of course, some more informations have to be stored in it, like who the sender is, the amount of Ether that is sent to the contract and some more info for the transaction. All this data are saved in a variable {\textit msg.}
+%http://www.coinfox.info/news/reviews/5195-ethereum-and-smart-contracts-in-depth
+\\Now we would like to introduce the Gas system. The gas is used to express the cost of a computation done by the EVM, which in turn will be payed in the currency (Ether). Even though the actual currency may variate, the price of the network resources (Gas) stays constant.
+\\The gas is divided in three main component, {\textit the Gas Cost, the Gas Price and the Gas Limit.}
+\\The Gas Cost has a static value over time, whereas the Gas Price, measured in ether, changes accordingly to the cryptocurrency's fluctuation. But like we said before, the real cost of the Gas should remain the same, which means that an increase of the price of ether will have as a consequence a drop down of the Gas Price.
+\\When somebody sends a transaction to invoke a contract, he has to specify hos much Gas he/she is willing to provide for its execution (Gas Limit). 
+%To run a particular transaction or program (called “contract”), one has to pay an amount of Gas (called Gas %Fee) to miners. There is a list of fixed default fees for particular operations 
+
+
 
 
 \subsubsection{Solidity: a typed JavaScript-like language}
-
+TODO: CONTROLLARE LA VALIDITA 
+As introduced in Ethereum, Solidity is a object-oriented programming language for writing smart contracts and it can be used on various blockchain even though it is used as the primary language on the Ethereum platform.
+%https://en.wikipedia.org/wiki/Solidity
+\\It was first proposed in August 2014 by Gavin Wood and developed later by the Ethereum project's Solidity team (CITA MEEENCHIA)
 
 \section{Smart Contract attacks}
 \subsection{DAO Attack}
@@ -93,8 +108,10 @@ tr
 One of the most famous attack on Smart Contracts was the DAO Attack (Decentralised Autonomous Organisation)\cite{SC6}.
 %https://www.wired.com/2016/06/50-million-hack-just-showed-dao-human/
 The DAO was a crowd-funding project which, like traditional mutual funds, allows investors or "members" to purchase shares and enjoy returns based on its performance.
-On 17 June 2016, the attacker managed to steal 3.6 Milion Ether\footnote{Corresponding to USD 60 million} from the Ethereum's platform and putting them into a personal account\cite{SC8}. \\ %http://www.clydeco.com/insight/article/ethereums-dao-attack-smart-contracts-and-blockchain-face-their-first-big-te
-Due to the strong impact of this attack to the Etherum platform, the value of the Ether currency drastically dropped from 20.5 USD to 11.20 USD\cite{SC9}. \\
+On 17 June 2016, the attacker managed to steal 3.6 Milion Ether\footnote{Corresponding to USD 60 million} from the Ethereum's platform and putting them into a personal account\cite{SC8}.\\ %http://www.clydeco.com/insight/article/ethereums-dao-attack-smart-contracts-and-blockchain-face-their-first-big-te
+Due to the strong impact of this attack to the Etherum platform, the value of the Ether currency drastically dropped from 20.5 USD to 11.20 USD\cite{SC9}.  
+%http://uk.businessinsider.com/dao-hacked-ethereum-crashing-in-value-tens-of-millions-allegedly-stolen-2016-6
+). \\
 We now consider only a streamlined version of the DAO attack, also called \textbf{SimpleDAO}, which is the first of the two known DAO attacks and has some common characteristics to the original one. The attack described below allows the hacker to siphon all the ether contained within the \textbf{SimpleDAO} Smart Contract.\cite{paper2} \\
 The first thing the attacker has to do is to publish a \textbf{Mallory} Contract (as shown below): 
 \begin{figure}[H]
@@ -106,7 +123,7 @@ The first thing the attacker has to do is to publish a \textbf{Mallory} Contract
 \end{figure}
 %https://github.com/chriseth/solidity-doc-test/blob/master/docs/frequently-asked-questions.rst
 %http://solidity.readthedocs.io/en/latest/frequently-asked-questions.html
-After publishing the contract, the hacker sent some Ether to Mallory and automatically invokes the Mallory Fallback\footnote{A Fallback is just a function without any name or parameter, which is called by default if some ether is sent to a contract\cite{SC10}. } (line 16, \textbf{Mallory}). \\
+After publishing the contract, the hacker sends some Ether to Mallory and automatically invokes the Mallory Fallback\footnote{A Fallback is just a function without any name or parameter, which is called by default if some ether is sent to a contract\cite{SC10}. } (line 16, \textbf{Mallory}). \\
 The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function written in the \textbf{SimpleDAO}\footnote{The whole Smart Contract's code is findable here: http://co2.unica.it/ethereum/attacks.html\#simpledao} contract (figure below), which is in charge of sending an amount of Ether to a specified public address. 
 \begin{figure}[H]
 \begin{center}
@@ -119,7 +136,7 @@ Since the \textbf{withdraw} function of the \textbf{SimpleDAO} has been invoked 
 This kind of loop goes on until one of the following conditions is satisfied: \\
 \begin{enumerate}
 %cita nella footnote: https://www.cryptocompare.com/coins/guides/what-is-the-gas-in-ethereum/
-\item The gas is exhausted\footnote{Internal fee in Ethereum paid to the miners, proportional to their power computation\cite{SC11}}.
+\item The gas is exhausted\footnote{Internal fee in Ethereum paid to the miners, proportional to their power computation\cite{SC11}}
 \item Call Stack is full
 \item Balance of DAO gets down to zero  
 \end{enumerate}
@@ -127,18 +144,28 @@ This kind of loop goes on until one of the following conditions is satisfied: \\
 
 
 
-\subsubsection{Possible solution}
 
+\subsubsection{No solutions, only countermeasures}
+Sadly, there was a lack of solutions for stopping this attack. The only possible choice was to suppress the attack and the community was faced with two of them.
+\\A first choice was to do a {\textit Soft fork} which consisted in freezing the transaction that belonged to the attacker. But not the majority of the whole community agreed with it and more important, the transactions that were used by the attacker in order to move the stolen funds, would have ignored and not reverted and therefore the miners would not have been paid
+\\Moreover, in doing so, a potential DOS attack would have been introduced. 
+(cit:)
+%https://steemit.com/crypto-news/@help-yourself/the-dao-soft-fork-solution-has-a-potential-dos-vector
+Specifically, an attacker can flood the network with transactions that execute difficult computation, and end by performing an operation on the DAO contract. Miners running the soft fork would end up having to execute, and then subsequently discard, such contracts without collecting any fees.
+\\Therefore a {\textit Soft fork} was proposed and approved on the 19th of July. Its intention was to put into a new refund Smart Contract all the ether taken by the attacker during the attack. The refund Smart Contract would have only one functions withdraw allowing the poor victims get back their stolen funds.
 \subsection{MultiPlayer Attack}
 The Multiplayer Attack is based on a game between two players. The rules are really simple, each player who joins the game has top chose a number, once both player have chosen a number, the sum of the number is calculated and if the result is even the first player wins, if the sum is odd the second one wins.
-\\Now, let's have a closer look at the contract:
+\\Now, let's have a closer look at the interesting part of the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{Talk3/img/oad1}
+\includegraphics[scale=0.5]{Talk3/img/oae1}
 \end{center}
 \caption{Odd and Even contract}
 \label{label}
 \end{figure}
+At line 4 we can see a struct that is used to hold the bets of the two players and at line 9 a private array stores them in a players variable. As you can see the array is declared as private, preventing other contract to directly read into it.\\
+To join a game,  the function play at line 16 gets invoked and . If that is not the case, an exception gets thrown and the amount is sent back to the player.
+\\When both player correctly joined the game, the method at line 29 is called.
 \subsubsection{Attack description}
 \subsubsection{Exploited vulnerability}
 \subsubsection{Possible solution}
@@ -253,7 +280,6 @@ Blablabla said asfbzasfubasbusauhfhu \cite{WinNT}.
 
 
 \bibitem{blockchain0}Morabito: \emph{Blockchain Value System.} 2017. \url{http://www.springer.com/cda/content/document/cda_downloaddocument/9783319484778-c2.pdf?SGWID=0-0-45-1599947-p180347565} (last accessed March 2017)
-\bibitem{A}\emph{Bits on blocks: Thoughts on blockchain technology}\url{https://bitsonblocks.net/2016/02/01/a-gentle-introduction-to-smart-contracts} (last accessed March 2017)
 
 
 
