@@ -158,16 +158,15 @@ The Multiplayer Attack is based on a game between two players. The rules are rea
 \\Now, let's have a closer look at the interesting part of the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{Talk3/img/oae1}
+\includegraphics[scale=0.3]{Talk3/img/oae1}
 \end{center}
 \caption{Odd and Even contract}
 \label{label}
 \end{figure}
 At line 4 we can see a struct that is used to hold the bets of the two players and at line 9 a private array stores them in a players variable. As you can see the array is declared as private, preventing other contract to directly read into it.\\
-To join a game,  the function play at line 16 gets invoked and . If that is not the case, an exception gets thrown and the amount is sent back to the player.
-\\When both player correctly joined the game, the method at line 29 is called.
+To join a game,  the function play at line 16 gets invoked and if all the omitted conditions inside are satisfied, an exception gets thrown and the amount is sent back to the player, otherwise the method at line 21 gets called, the winner is found and the new amount can be withdrawn by invoking getProfit().
 \subsubsection{Attack description}
-\subsubsection{Exploited vulnerability}
+\\The attack is really simple and it does not require too much programming skill to be realized. As said in the description of the game, the array which holds the amount that has been bet by the two players is declared as private. This does mean that other contracts cannot ready its content, but it does not prevent an attacker from inspecting the transaction (the current state of the game) on the blockchain and actually see what is inside it. Once the attacker manages to inspect the blockain and check the other player's bet, he can play by betting a suitable amount in order to be the winner and withdraw the jackpot.
 \subsubsection{Possible solution}
 
 \subsection{Rubixi Attack}
