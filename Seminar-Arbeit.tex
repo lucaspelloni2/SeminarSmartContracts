@@ -155,12 +155,14 @@ The Multiplayer Attack is based on a game between two players. The rules are rea
 \\Now, let's have a closer look at the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{Talk3/img/oad1}
+\includegraphics[scale=0.5]{Talk3/img/oae1}
 \end{center}
 \caption{Odd and Even contract}
 \label{label}
 \end{figure}
-\\
+At line 4 we can see a struct that is used to hold the bets of the two players and at line 9 a private array stores them in a players variable. As you can see the array is declared as private, preventing other contract to directly read into it.\\
+To join a game,  the function at line 18 gets invoked and immediately at line 21, it checks whether the players have bet 1 Ether. If that is not the case, an exception gets thrown and the amount is sent back to the player.
+\\When both player correctly joined the game, the method at line 29 is called.
 \subsubsection{Attack description}
 \subsubsection{Exploited vulnerability}
 \subsubsection{Possible solution}
