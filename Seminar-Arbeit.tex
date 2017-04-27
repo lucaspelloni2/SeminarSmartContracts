@@ -152,7 +152,7 @@ Specifically, an attacker can flood the network with transactions that execute d
 \\Therefore a {\textit Soft fork} was proposed and approved on the 19th of July. Its intention was to put into a new refund Smart Contract all the ether taken by the attacker during the attack. The refund Smart Contract would have only one functions withdraw allowing the poor victims get back their stolen funds.
 \subsection{MultiPlayer Attack}
 The Multiplayer Attack is based on a game between two players. The rules are really simple, each player who joins the game has top chose a number, once both player have chosen a number, the sum of the number is calculated and if the result is even the first player wins, if the sum is odd the second one wins.
-\\Now, let's have a closer look at the contract:
+\\Now, let's have a closer look at the interesting part of the contract:
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{Talk3/img/oae1}
@@ -161,7 +161,7 @@ The Multiplayer Attack is based on a game between two players. The rules are rea
 \label{label}
 \end{figure}
 At line 4 we can see a struct that is used to hold the bets of the two players and at line 9 a private array stores them in a players variable. As you can see the array is declared as private, preventing other contract to directly read into it.\\
-To join a game,  the function at line 18 gets invoked and immediately at line 21, it checks whether the players have bet 1 Ether. If that is not the case, an exception gets thrown and the amount is sent back to the player.
+To join a game,  the function play at line 16 gets invoked and . If that is not the case, an exception gets thrown and the amount is sent back to the player.
 \\When both player correctly joined the game, the method at line 29 is called.
 \subsubsection{Attack description}
 \subsubsection{Exploited vulnerability}
