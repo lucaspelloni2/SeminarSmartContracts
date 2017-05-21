@@ -3,7 +3,10 @@
 \chaptauthors{Lucas Pelloni and Ile Cepilov}
 
 \Kurzfassung{%
-This is the abstract.
+%Gli Smart Contract oggi giorno rappresentano una valida alternativa a contratti tradizionali %e possono automatizzare l'agreement di termini legali tra più parti. 
+%La loro efficacia è garantita sia da una solida piattagorma sulla quali essi vengono %eseguiti, sia da una nuova tecnologia sempre più in ascesa come la Blockchain. 
+%Tuttavia, nonostante gli sforzi degli sviluppatori di scrivere codice sicuro e "impenetrabile" agli occhi degli hackers, si sono verificati nel corso degli ultimi tempi numerosi attacchi hacker, che hanno evidenziato diverse falle all'interno del codice di questi contratti. 
+%L'impiego degli Smart Contract all'interno della vita quotidiana appare ancora lontano. Sia a a causa di una diffusione ancora di nicchia della sopracitata Blockchain technology, che di un trade-off tra il "fidarsi di una softaware o di una persona". 
 It fits pretty much on one page and is definitely not longer.}
 
 \newpage
@@ -97,7 +100,14 @@ cita\cite{SC2}
 
 %Like said before, there is no need of a middleman (lawyer) 
 
-
+\subsection{Smart Contracts and Blockchain technology}
+           \begin{figure}[H]
+         \begin{center}
+         \includegraphics[scale=0.4]{Talk3/img/sc_blockchain}
+         \end{center}
+         \caption{Decentralized system with smart contracts, from \cite{paper3}}
+         \label{label}
+       \end{figure}
 
 \subsection{Ethereum: a public blockchain-based platform}
 Ethereum is a platform for the publication and the execution of Smart Contracts. It is decentralized \cite{paper2} and executes the Smart Contracts as programmed from their creator.
@@ -220,7 +230,7 @@ The figure below shows a simplified rappresentation of the bug mentioned above \
 Users could just invoke the faulty \textit{DynamicPyramid} constructor and so they get associated as owners of the contract. After that, they could just withdraw the fees keep by the contract \cite{rubixi1}. 
 
 \subsubsection{Possible solution}
-Af
+The only obvious solution was to change the name of the constract from \textit{DynamicPyramid} into \textit{Rubixi}.
 
 %sito originale: https://www.kingoftheether.com
 %Post mordem: https://www.kingoftheether.com/postmortem.html
@@ -249,7 +259,7 @@ After that, the attacker could easily withdraw the compensation accumulated in t
 %cita questo: https://www.kingoftheether.com/contract-safety-checklist.html
 \subsubsection{Possible solution}
 The solution adapted by Ethereum to avoid future attacks is also known as the "failed sends" solution (cita). It consists of an attachment of a reasonable amount of gas with each transaction involving two or more parties (cita ancora). 
-For example, if a miner would have a very expensive fallback function, an exception should be thrown and the whole transaction should be reverted. \\ For testing the accuracy of this solution Ethereum runned several functional tests\footnote{the simulated test cases described in th Ethereum on-chain report can be found here: https://github.com/kieranelby/KingOfTheEtherThrone/blob/v1.0/tests/onchain-test-report.md}, trying to cover the largest number of possible scenarios. 
+For example, if a miner would have a very expensive fallback function, an exception should be thrown and the whole transaction should be reverted. \\ For testing the accuracy of this solution Ethereum runned several functional tests\footnote{the simulated test cases described in the Ethereum on-chain report can be found here: https://github.com/kieranelby/KingOfTheEtherThrone/blob/v1.0/tests/onchain-test-report.md}, trying to cover the largest number of possible scenarios. 
 
 
 \subsubsection{Second Attack description}
@@ -292,9 +302,23 @@ Blablabla said asfbzasfubasbusauhfhu \cite{WinNT}.
 %http://usblogs.pwc.com/emerging-technology/tag/blockchain/
 %http://www.coindesk.com/blockchain-smart-contracts-looming-challenges/
 \section{Security Challenges in Smart Contract}
-\subsection{No guarantee of transaction execution}
-\subsection{Slowness of Smart Contract}
+\textbf{Vitalik Buterin}, co-founder of Ethereum \cite{vitalin}, posted on the \textit{Ethereum blog} \cite{challenge2}, some considerations about Smart Contract security.\\
+In the following, we summarize and explain some of these security challenges for  \textit{Smart Contracts} and Blockchain technology \cite{challenge1}.
+\subsection{In-depth and stratified defense}
+For all the attacks we presented in the above sections, there are several solutions proposed for fixing the contracts bugs in a definitive way, but there are also ways for only suppressing the attack (\textit{e.g. for the DAO attack}). \\
+Vitalik Buterin, on \cite{challenge2} argues that, in order to limit the number of bugs and so automatically the number of attacks, Smart Contract security has to be stratified, incremental and "dependent on defense-in-depth" \cite{challenge2}. \\
+Therefore there will not be a unique tool or a unique key technology for solving all the problems on \textit{Ethereum}, but only ways to reduce them \cite{challenge2}.
+\subsection{Common patterns}
+A category of very common bugs in Software Engineering areas are \textit{variable/function mixups}. \\
+One example of this type of bug on Ethereum is \textit{Rubixi} \cite{rubixi1}.
+
+% TODO 
+
 \subsection{Code is slow}
+
+
+
+
 
 \begin{thebibliography}{99}
 \bibitem{ethereum1}\emph{Ethereum Homestead Release.} \url{https://www.ethereum.org} (last accessed March 2017)
@@ -306,6 +330,12 @@ Blablabla said asfbzasfubasbusauhfhu \cite{WinNT}.
 \bibitem{paper1}Loi Luu, Duc-Hiep Chu, Hrishi Olickel, Prateek Saxena, Aquinas Hobor: \emph{Making Smart Contracts Smarter.}. October 2016. \url{http://delivery.acm.org/10.1145/2980000/2978309/p254-luu.pdf?ip=195.176.96.218&id=2978309&acc=ACTIVE\%20SERVICE&key=FC66C24E42F07228\%2EA04051DB0C098788\%2E4D4702B0C3E38B35\%2E4D4702B0C3E38B35&CFID=926344688&CFTOKEN=88107312&__acm__=1492712435_d0f0d96ea04f8cf077c9b90253210778} (last accessed February 2016)
 
 \bibitem{paper2}Atzei, Nicola and Bartoletti, Massimo and Cimoli, Tiziana: \emph{A survey of attacks on Ethereum smart contracts.} 2016. Cryptology ePrint Archive: Report 2016/1007, https://eprint. iacr. org/2016/1007 \url{https://eprint.iacr.org/2016/1007.pdf} (last accessed February 2017)
+
+
+\bibitem{paper3}Delmolino \textit{et al.}: \emph{Step by Step Towards Creating a Safe Smart Contract: Lessons and Insights from a Cryptocurrency Lab.} 2016.  \url{http://fc16.ifca.ai/bitcoin/papers/DAKMS16.pdf} (last accessed March 2017)
+
+
+
 
 \bibitem{blockchain3}Investopedia: \emph{What is a Blockchain.} \url{http://www.investopedia.com/terms/b/blockchain.asp} (last accessed March 2017)
 
@@ -352,9 +382,10 @@ Blablabla said asfbzasfubasbusauhfhu \cite{WinNT}.
     
     
 \bibitem{ponzi}\emph{Schema Ponzi.}\url{https://it.wikipedia.org/wiki/Schema_Ponzi} (last accessed April 2017)
-\bibitem{SC17}\emph{title.}\url{url} (last accessed March 2017)
-\bibitem{SC18}\emph{title.}\url{url} (last accessed April 2017)
-\bibitem{SC19}\emph{title.}\url{url} (last accessed March 2017)
+\bibitem{challenge1}\emph{Five Challenges Facing Your Smart Contract Project.}\url{https://makebitcoingreatagain.wordpress.com/2016/02/10/5-challenges-facing-smart-contracts/} (last accessed March 2017)
+
+\bibitem{challenge2}\emph{Thinking About Smart Contract Security.}\url{https://blog.ethereum.org/2016/06/19/thinking-smart-contract-security/} (last accessed April 2017)
+\bibitem{vitalin}\emph{Wikipedia: Vitalik Buterin.}\url{https://en.wikipedia.org/wiki/Vitalik_Buterin} (last accessed March 2017)
 \bibitem{SC20}\emph{title.}\url{url} (last accessed April 2017)
 \bibitem{SC21}\emph{title.}\url{url} (last accessed March 2017)
 \bibitem{SC22}\emph{title.}\url{url} (last accessed April 2017)
