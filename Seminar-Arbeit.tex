@@ -1,3 +1,4 @@
+
 \chapter{Security Challenges in Smart Constracts}
 \markboth{Security Challenges in Smart Constracts}{}
 \chaptauthors{Lucas Pelloni and Ile Cepilov}
@@ -192,7 +193,7 @@ Sadly, there was a lack of solutions for stopping this attack. The only possible
 Specifically, an attacker can flood the network with transactions that execute difficult computation, and end by performing an operation on the DAO contract. Miners running the soft fork would end up having to execute, and then subsequently discard, such contracts without collecting any fees.
 \\Therefore a {\textit Soft fork} was proposed and approved on the 19th of July. Its intention was to put into a new refund Smart Contract all the ether taken by the attacker during the attack. The refund Smart Contract would have only one functions withdraw allowing the poor victims get back their stolen funds.
 \subsection{MultiPlayer Attack}
-The Multiplayer Attack is based on a game between two players. The rules are really simple, each player who joins the game has top chose a number, once both player have chosen a number, the sum of the number is calculated and if the result is even the first player wins, if the sum is odd the second one wins.
+The Multiplayer Attack is based on a game between two players. The rules are really simple, each player who joins the game has to chose a number, once both player have chosen a number, the sum of the number is calculated and if the result is even the first player wins, if the sum is odd the second one wins.
 \\Now, let's have a closer look at the interesting part of the contract:
 \begin{figure}[H]
 \begin{center}
@@ -204,9 +205,10 @@ The Multiplayer Attack is based on a game between two players. The rules are rea
 At line 4 we can see a struct that is used to hold the bets of the two players and at line 9 a private array stores them in a players variable. As you can see the array is declared as private, preventing other contract to directly read into it.\\
 To join a game,  the function play at line 16 gets invoked and if all the omitted conditions inside are satisfied, an exception gets thrown and the amount is sent back to the player, otherwise the method at line 21 gets called, the winner is found and the new amount can be withdrawn by invoking getProfit().
 \subsubsection{Attack description}
-The attack is really simple and it does not require too much programming skill to be realized. As said in the description of the game, the array which holds the amount that has been bet by the two players is declared as private. This does mean that other contracts cannot ready its content, but it does not prevent an attacker from inspecting the transaction (the current state of the game) on the blockchain and actually see what is inside it. Once the attacker manages to inspect the blockain and check the other player's bet, he can play by betting a suitable amount in order to be the winner and withdraw the jackpot.
+The attack is really simple and it does not require too much programming skills to be realized. As said in the description of the game, the array which holds the amount that has been bet by the two players is declared as private. This does mean that other contracts cannot ready its content, but it does not prevent an attacker from inspecting the transaction (the current state of the game) on the blockchain and actually see what is inside it. Once the attacker manages to inspect the blockain and check the other player's bet, he can play by betting a suitable amount in order to be the winner and withdraw the jackpot.
 \subsubsection{Possible solution}
-
+Since the blockchain is public, anyone can audit its content and making it private would go against the real purpose of the blockchain. In order to prevent these attacks, which exploit this kind of vulnerability, some techniques like Timmed-Commitments \cite{timmedCommitments1, paper2} can be applied.\\
+This approach consists of simply setting a time period in which the other player has to play his move. If the opposing player does not play within the given interval, he will get a penalty.
 \subsection{Rubixi Attack}
 Rubixi \cite{rubixi1, rubixi2} in another game avaiable on \textit{Ethereum}. It implements a fraudalent scheme, also known as \textbf{Ponzi scheme} \cite{paper2}.
 This scheme \cite{ponzi}, can also be viewed as a fraudalent investment operation. For instance, \textit{the scheme's owner} promises out-of-standards gains on a short-term period, often referring to non-existent mechanisms. \\ 
@@ -288,17 +290,51 @@ At this point, nobody else can get her crown, since every time \textbf{KotET} tr
 
 \subsubsection{Possible solution}
 
+\subsection{Govern-Mental: Introduction}
+Govern-Mental is once again based on the ponzi scheme explained before. But before getting into the attack, we will explain you how this scheme works in this case.\\
+To take part in it, a participant must send a  certain amount of ether to the contract. When nobody joins it for at least twelve hours, the last contributor is going to take all the ether contained in the contract, except of course for a small fee which is going to be kept by the owner of the contract.
+Once the timer on the jackpot runs out, the two arrays are cleared as follows:\cite{paper2}.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.3]{Talk3/img/Governmental1Array}
+\end{center}
+\caption{Clearing the two arrays}
+\label{label}
+\end{figure}
+A problem that arose had to do with the size of the two arrays. At some point the list got too big and the amount of ether required for clearing it was exceeding the maximum amount allowed for a single transaction. From then on, any endeavor in clearing them was useless.
+To better understand the attacks that will come, we are first going to introduce you a simplified example of the contract:
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.3]{Talk3/img/GovernmentalContract}
+\end{center}
+\caption{Clearing the two arrays}
+\label{label}
+\end{figure}
+The Governmental contract takes the investments and it pays back only the player who is the last for at least one minute. A player must invest at least half of the jackpot (line 13), which grows with each new investment, to join the scheme. Anyone can invoke \textit{resetInvestment()}, which pays the half of the invested total (the jackpot) to the winner (line 17), and sends as usual the remaining ether to the owner of the contract.
 \subsection{Govern-Mental: First Attack}
-Blablabla said asfbzasfubasbusauhfhu \cite{WinNT}.
-\subsubsection{Attack description}
-\subsubsection{Exploited vulnerability}
+This first attack consists in keeping all the ether of the scheme in the contract. To achieve this intent, the send function (line 22) has to fail so that the real winner never gets back his money (the jackpot).
+Obviously, the attacker in this case is going to be the owner of the contract because at the end he can take all the money.
+The first thing to do is to publish an Attack contract like the following one:
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.3]{Talk3/img/GovernmentAtttackContract}
+\end{center}
+\caption{Attacker contract}
+\label{label}
+\end{figure}
+As you can see at line 5, the Attacker contracts starts recursively executing itself, increasing the stack of one frame at each call \cite{paper2}.
+When the stack has grown enough (right before reaching the 1024 size) the \textbf{resetInvestment()} function in the else statement gets executed and the actual send at line 22 of the Governmental contracts fails because the stack size limit is reached.\\
+Unfortunately, no exceptions get thrown. Therefore, the execution continues, the state of the contract gets reverted and another round is started.\\
+The amount of the balance in the contract increases upon each played round because the proper winner is never paid. Once the owner of the contract is satisfied, he can simply wait for another round to correctly terminate and withdraw all the ether contained in it.
 \subsubsection{Possible solution}
-
+The vulnerability used in this attack has already been fixed by an hard-fork of the Ethereum blockchain \cite{hardfork}. The fork changed the cost of several EVM instructions, and re- defined the way to compute the gas consumption of call and delegatecall\cite{paper2}.
+This simply means that the cost for a call of an external function has been increased. This makes impossible to fill the stack and any attempt in doing so will throw an out-of-gas exception
 \subsection{Govern-Mental: Second Attack}
-\subsubsection{Attack description}
-\subsubsection{Exploited vulnerability}
-\subsubsection{Possible solution}
+In the second attack, the attacker is no longer the owner of the contract but instead is going to be a miner.\\
+Miners can decide which transactions to include and which not to as well as preserve the order or not. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.
 
+\subsection{Govern-Mental: Third Attack}
+As seen in the second attack, the attacker is going to be again a miner. When the miner succeeds in joining the scheme, he can alter the timestamp of the new block so that it results in at least one minute later than the timestamp of the current block. Once he manages to publish the new block with the counterfeit timestamp, he will win the jackpot.
 %http://usblogs.pwc.com/emerging-technology/tag/blockchain/
 %http://www.coindesk.com/blockchain-smart-contracts-looming-challenges/
 \section{Security Challenges in Smart Contract}
@@ -391,6 +427,14 @@ One example of this type of bug on Ethereum is \textit{Rubixi} \cite{rubixi1}.
 \bibitem{SC22}\emph{title.}\url{url} (last accessed April 2017)
 \bibitem{SC23}\emph{title.}\url{url} (last accessed March 2017)
 \bibitem{SC24}\emph{title.}\url{url} (last accessed April 2017)
+
+
+
+\bibitem{timmedCommitments1}\emph{Financial Cryptography and Data Security.}\url{https://books.google.ch/books?id=7YGBCgAAQBAJ&pg=PA14&lpg=PA14&dq=timed+commitments+blockchain&source=bl&ots=jpTIFT8fFx&sig=x9lTOEaQH5K1aU8ipaj1f8dTSO8&hl=it&sa=X&ved=0ahUKEwiWraz8x-rSAhVG72MKHZZ6A7gQ6AEIJTAB#v=onepage&q=timed&f=false} (last accessed Mai 2017)
+
+
+\bibitem{hardfork}\emph{Announcement of imminent hard fork for EIP150 gas cost changes.}\url{https://blog.ethereum.org/2016/10/13/announcement-imminent-hard-
+fork-eip150-gas-cost-changes/} (last accessed Mai 2017)
 
 
 
