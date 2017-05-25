@@ -340,6 +340,9 @@ This kind of process, which doesn't allow parallel processing can cause some nod
 Indeed, on \textit{Ethereum} if a miner may not able to compute its content in a reasonable time before a new block comes, the whole block execution may be damaged \cite{challenge1}. \\
 Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethereum}, the risk of losing some information or that a node drown under a backlog of work\footnote{accumulation over time of work waiting to be done or orders to be fulfilled \cite{challenge4}} is relatively high.
 
+\subsection{Execution of transaction not set in stone}
+As we have seen in some attacks, miners are sometimes free to chose what to do. This means that even though a user attaches a high fee to his transaction, it might still be ignored by miners and thus not validated and executed.\\
+Due to this problem, some applications of smart contracts in other context may not be possible.
 
 
 \begin{thebibliography}{99}
