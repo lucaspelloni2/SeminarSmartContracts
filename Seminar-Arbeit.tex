@@ -337,7 +337,7 @@ Miners can decide which transactions to include and which not to as well as pres
 As seen in the second attack, the attacker is going to be again a miner. When the miner succeeds in joining the scheme, he can alter the timestamp of the new block so that it results in at least one minute later than the timestamp of the current block. Once he manages to publish the new block with the counterfeit timestamp, he will win the jackpot.
 %http://usblogs.pwc.com/emerging-technology/tag/blockchain/
 %http://www.coindesk.com/blockchain-smart-contracts-looming-challenges/
-\section{Security Challenges in Smart Contract}
+\section{Security Challenges in Smart Contract and Blockchain Technology}
 \textbf{Vitalik Buterin}, co-founder of Ethereum \cite{vitalin}, posted on the \textit{Ethereum blog} \cite{challenge2}, some considerations about Smart Contract security.\\
 In the following, we summarize and explain some of these security challenges for  \textit{Smart Contracts} and Blockchain technology \cite{challenge1}.
 \subsection{In-depth and stratified defense}
@@ -345,14 +345,27 @@ For all the attacks we presented in the above sections, there are several soluti
 Vitalik Buterin, on \cite{challenge2} argues that, in order to limit the number of bugs and so automatically the number of attacks, Smart Contract security has to be stratified, incremental and "dependent on defense-in-depth" \cite{challenge2}. \\
 Therefore there will not be a unique tool or a unique key technology for solving all the problems on \textit{Ethereum}, but only ways to reduce them \cite{challenge2}.
 \subsection{Common patterns}
-A category of very common bugs in Software Engineering areas are \textit{variable/function mixups}. \\
-One example of this type of bug on Ethereum is \textit{Rubixi} \cite{rubixi1}.
+A category of very common bugs in Software Engineering areas are variable/function naming mixups. \\
+One example of this type of bug on Ethereum is \textit{Rubixi} \cite{rubixi1}. \textit{Vitalik} argues that \cite{challenge2}, one way for reducing code bugs on \textit{Solidity} is to try to implement \textit{common patterns} and hardcode them. \\
+He explains that if \textit{Rubixi} would have used a hypotetical common pattern the bug could have been avoided. 
+For instance, a common pattern would have allowed the keywork \textit{owner} only be initialized to equal \textit{msg.sender} in the constructor of \textit{Rubixi} and not in another function. 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{Talk3/img/rubixi2}
+\end{center}
+\caption{Rubixi Smart Contract}
+\label{label}
+\end{figure}
 
-% TODO 
+This implies that the function at \textit{line 3} called \textit{DynamicPyramid} would have never been able to execute its content and so associate the \textit{owner} of the contract ot the \textit{msg.sender}.
 
-\subsection{Code is slow}
-
-
+\subsection{Smart contracts make slow Blockchains}
+Since every 14 seconds new blocks are mined in \textit{Ethereum} \cite{sina} confirming a set of transactions in a specific order \cite{challenge3}, the blockchain should be a responsive technology in order to elaborate the blocks and validate its execution. \\
+However, smart contracts can only be executed in a sequential procedure \cite{challenge3} in order to provide its correct result. This because the transactions's order might affect the outcome. You can consider the block containing this set of transactions as a calculator \cite{challenge1}. If you have to compute some basic operations, like for example 20 divided by 5 substract 2, the correct result will be 2. However, if the order of these operations cannot be guaranteed, another potential result may be 7.3 (20 divided by 5 minus 2). 
+You can imagine that there is an analogy between operations and incoming transactions. If the order of two incoming transactions within a block on the blockchain may be reversed or the second one early processed, the execution of the smart contract may be error-prone. \\
+This kind of process, which doesn't allow parallel processing can cause some nodes backlogs and so implies delays in the smart contract execution \cite{challenge1}. \\
+Indeed, on \textit{Ethereum} if a miner may not able to compute its content in a reasonable time before a new block comes, the whole block execution may be damaged \cite{challenge1}. \\
+Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethereum}, the risk of losing some information or that a node drown under a backlog of work\footnote{accumulation over time of work waiting to be done or orders to be fulfilled \cite{challenge4}} is  relatively high.
 
 
 
@@ -422,10 +435,15 @@ One example of this type of bug on Ethereum is \textit{Rubixi} \cite{rubixi1}.
 
 \bibitem{challenge2}\emph{Thinking About Smart Contract Security.}\url{https://blog.ethereum.org/2016/06/19/thinking-smart-contract-security/} (last accessed April 2017)
 \bibitem{vitalin}\emph{Wikipedia: Vitalik Buterin.}\url{https://en.wikipedia.org/wiki/Vitalik_Buterin} (last accessed March 2017)
-\bibitem{SC20}\emph{title.}\url{url} (last accessed April 2017)
-\bibitem{SC21}\emph{title.}\url{url} (last accessed March 2017)
-\bibitem{SC22}\emph{title.}\url{url} (last accessed April 2017)
-\bibitem{SC23}\emph{title.}\url{url} (last accessed March 2017)
+
+
+\bibitem{sina}\emph{Bruno Rodrigues, Thomas Bocek, David Hausheer, Andri Lareida, Sina Rafati, Burkhard Stiller. A Blockchain-based Architecture for Collaborative DDoS Mitigation with Smart Contracts and SDN. 11th International Conference on Autonomous Infrastructure, Management and Security (AIMS 2017). July 10-14, Zurich, Switzerland. To appear.} (last accessed April 2017)
+
+\bibitem{challenge3} Gideon Greenspan. \emph{Smart contracts make slow blockchains.}\url{http://www.multichain.com/blog/2015/11/smart-contracts-slow-blockchains/} (last accessed March 2017)
+
+
+\bibitem{challenge4}\emph{Wikipedia: Backlog.}\url{https://en.wikipedia.org/wiki/Backlog} (last accessed April 2017)
+\bibitem{SC23}\emph{.}\url{url} (last accessed March 2017)
 \bibitem{SC24}\emph{title.}\url{url} (last accessed April 2017)
 
 
