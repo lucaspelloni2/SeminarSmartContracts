@@ -24,46 +24,15 @@ It fits pretty much on one page and is definitely not longer.}
 \section{Blockchain Technology}
 \subsection{Definition of Blockchain}
 A blockchain is like a distributed database which constantly keeps a list of transaction or records, that have ever been executed, called usually blocks. Every record contains a reference to its predecessor and a timestamp \cite{wikipedia1}.
-Data in a record cannot be changed due to its design. This makes them tampering-proof and a very good source of trust for the near future \cite{blockchain3}.
-The blockchain works and is maintained by the entire community, which verifies all records and acts like a node of a peer-to-peer network, making the need of a thirty part trust organisation useless \cite{blockchain0}.
+Data in a record cannot be changed due to its design. This makes them tampering-proof as well as a very good source of trust for the near future \cite{blockchain3}.
+The blockchain works and is maintained by the entire community, which keeps and verifies all records and acts like a node of a peer-to-peer network, making the need of a thirty part trust organisation useless \cite{blockchain0}.
 \subsubsection{Source of Trust}
+A blockchain is based on a very powerful cryptographic concept. Original pieces of information are converted into code thanks to the application of a hash function. In this way, any attempt to attack it will result in a different hash value which will not allow any further modification.
 %http://www.investopedia.com/terms/b/blockchain.asp
-Blockchain will become a global decentralised source of trust \cite{blockchain3}.
-Everything that is centralized makes it easy to attack because it offers a single point of failure (e.g. Firewall of a website). 
-Application built with Blockchain technology do not require users to trust the developers with personal information or funds \cite{blockchain3}. 
-\subsubsection{How does a Blockchain work?}
-           \begin{figure}[ht]
-         \begin{center}
-         \includegraphics[scale=0.6]{Talk3/blockchain}
-         \end{center}
-         \caption{This is a pic FROM ILIA}
-         \label{label}
-       \end{figure}
-   
+Thus, the blockchain might become a global decentralised source of trust \cite{blockchain3} for all parties involved in the business.\\
+Usually, everything that is centralized is easy to attack because it offers a single point of failure (e.g. Firewall of a website). 
+Applications built with Blockchain technology do not require users to trust developers with personal informations or funds \cite{blockchain3}, i.e. the need of an authority or an institution such as a bank,which acts as a middleman to make a transaction, is no longer needed. Moreover, buyers and sellers can directly transact with each other with the benefit of reducing the costs of transacting.
 %https://www2.deloitte.com/nl/nl/pages/innovatie/artikelen/blockchain-technology-9-benefits-and-7-challenges.html
-\subsection{Benefits of Blockchain Technology}
-Every technology that is centralized offers somewhere a point of failure which might be exploited by attackers and nowadays, banks are normally used by most people as a trusted middleman in order to make transaction.
-Thanks to its decentralizations, blockchain will avoid the need of a trusted middleman to make transaction by connecting directly buyers and sellers.
-%TODO
-
-%http://www.huffingtonpost.com/ameer-rosic-/5-blockchain-applications_b_13279010.html
-\subsection{Blockchain applications}
-The most famous application of blockchain is in online trades where it gets used for transfering a cryptovalue, bitcoins.
-%TODO 
-
-
-%https://www.shapingtomorrow.com/home/alert/665529-Future-of--Blockchain
-%http://usblogs.pwc.com/emerging-technology/the-blockchain-problem-is-a-trust-problem/
-\subsection{Future of Blockchain}
-some text\cite{blockchain9}, other text \cite{blockchain10}
-%TODO 
-
-%https://www.taylorwessing.com/download/article-how-secure-is-block-chain.html
-\subsection{Blockchain security}
-some text\cite{blockchain11}
-%TODO 
-
-
 \section{Smart Contract: Introduction}
 \subsection{Smart Contract: a self-executing contractual agreements}
 %definition founded here: https://www.youtube.com/watch?v=FkeLDPZ-v8g&t=134s
@@ -113,9 +82,10 @@ cita\cite{SC2}
 \subsection{Ethereum: a public blockchain-based platform}
 Ethereum is a platform for the publication and the execution of Smart Contracts. It is decentralized \cite{paper2} and executes the Smart Contracts as programmed from their creator.
 It has a own cryptovalue called Ether which is used as payment for the execution of Smart Contracts.
-At the 24th of April 2017, the value of the currency compared to Bitcoins corresponded to CONTINUA
+At the 24th of April 2017, the value of the currency compared to Bitcoins corresponded to 25 ETH to 1 BTC, which might not seem a lot but when compared to a fiat currency, like the swiss currency, it would correspond to circa 1242 CHF.\\
+This high value of Bitcoins can be attributed to its monetary inflation from 2010 up until today (the 24th of May) \cite{BitcoinsPriceCharts}. Indeed, this currency growth, not being conditioned by macroeconomic factors (such as authorities), could not have been foreseen. \\
 Ethereum's contracts are written in Solidity, which is an objected-oriented language programming language, similar to Java, and it is exclusively designed for coding Smart Contracts.
-The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytecode) and deployed finally on the Ethereum blockchain 
+The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytecode) and deployed finally on the Ethereum blockchain \cite{paper2}. 
 
 \subsection{Smart Contract's properties in Ethereum}
 In this section we will have a look at the key components that can be found inside a Smart Contract.
@@ -330,11 +300,14 @@ The amount of the balance in the contract increases upon each played round becau
 The vulnerability used in this attack has already been fixed by an hard-fork of the Ethereum blockchain \cite{hardfork}. The fork changed the cost of several EVM instructions, and re- defined the way to compute the gas consumption of call and delegatecall\cite{paper2}.
 This simply means that the cost for a call of an external function has been increased. This makes impossible to fill the stack and any attempt in doing so will throw an out-of-gas exception
 \subsection{Govern-Mental: Second Attack}
-In the second attack, the attacker is no longer the owner of the contract but instead is going to be a miner.\\
-Miners can decide which transactions to include and which not to as well as preserve the order or not. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.
+In the second attack, the attacker is no longer the owner of the contract but instead it is going to be a miner.\\
+Miners can decide which transactions to include and which not to as well as preserve the order or not\cite{paper2}. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.\\
+So far, there are not known solutions to patch the vulnerability exploited in this attack
+
 
 \subsection{Govern-Mental: Third Attack}
 As seen in the second attack, the attacker is going to be again a miner. When the miner succeeds in joining the scheme, he can alter the timestamp of the new block so that it results in at least one minute later than the timestamp of the current block. Once he manages to publish the new block with the counterfeit timestamp, he will win the jackpot.
+The new timestamp can be chosen with a certain degree of arbitrariness\cite{paper2}. In a previous version the choice was possible within an interval of circa 900 seconds\cite{BlockProtocol}, which was enough to allow some alterations of the timestamp. In more recents versions the interval has been substantially decreased to a few seconds\cite{paper2} in order to put some obstructs to attackers, despite that a real solution for this vulnerability has not been discovered yet.
 %http://usblogs.pwc.com/emerging-technology/tag/blockchain/
 %http://www.coindesk.com/blockchain-smart-contracts-looming-challenges/
 \section{Security Challenges in Smart Contract}
@@ -435,6 +408,10 @@ One example of this type of bug on Ethereum is \textit{Rubixi} \cite{rubixi1}.
 
 \bibitem{hardfork}\emph{Announcement of imminent hard fork for EIP150 gas cost changes.}\url{https://blog.ethereum.org/2016/10/13/announcement-imminent-hard-
 fork-eip150-gas-cost-changes/} (last accessed Mai 2017)
+
+\bibitem{BlockProtocol}\emph{Block Protocol 2.0.}\url{https://github.com/ethereum/wiki/wiki/Block-Protocol-2.0#block-validation-algorithm} (last accessed Mai 2017)
+
+\bibitem{BitcoinsPriceCharts}\emph{Bitcoins price chart history}\url{https://99bitcoins.com/price-chart-history/} (last accessed Mai 2017)
 
 
 
