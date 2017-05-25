@@ -1,4 +1,3 @@
-
 \chapter{Security Challenges in Smart Constracts}
 \markboth{Security Challenges in Smart Constracts}{}
 \chaptauthors{Lucas Pelloni and Ile Cepilov}
@@ -24,46 +23,15 @@ It fits pretty much on one page and is definitely not longer.}
 \section{Blockchain Technology}
 \subsection{Definition of Blockchain}
 A blockchain is like a distributed database which constantly keeps a list of transaction or records, that have ever been executed, called usually blocks. Every record contains a reference to its predecessor and a timestamp \cite{wikipedia1}.
-Data in a record cannot be changed due to its design. This makes them tampering-proof and a very good source of trust for the near future \cite{blockchain3}.
-The blockchain works and is maintained by the entire community, which verifies all records and acts like a node of a peer-to-peer network, making the need of a thirty part trust organisation useless \cite{blockchain0}.
+Data in a record cannot be changed due to its design. This makes them tampering-proof as well as a very good source of trust for the near future \cite{blockchain3}.
+The blockchain works and is maintained by the entire community, which keeps and verifies all records and acts like a node of a peer-to-peer network, making the need of a thirty part trust organisation useless \cite{blockchain0}.
 \subsubsection{Source of Trust}
+A blockchain is based on a very powerful cryptographic concept. Original pieces of information are converted into code thanks to the application of a hash function. In this way, any attempt to attack it will result in a different hash value which will not allow any further modification.
 %http://www.investopedia.com/terms/b/blockchain.asp
-Blockchain will become a global decentralised source of trust \cite{blockchain3}.
-Everything that is centralized makes it easy to attack because it offers a single point of failure (e.g. Firewall of a website). 
-Application built with Blockchain technology do not require users to trust the developers with personal information or funds \cite{blockchain3}. 
-\subsubsection{How does a Blockchain work?}
-           \begin{figure}[ht]
-         \begin{center}
-         \includegraphics[scale=0.6]{Talk3/blockchain}
-         \end{center}
-         \caption{This is a pic FROM ILIA}
-         \label{label}
-       \end{figure}
-   
+Thus, the blockchain might become a global decentralised source of trust \cite{blockchain3} for all parties involved in the business.\\
+Usually, everything that is centralized is easy to attack because it offers a single point of failure (e.g. Firewall of a website). 
+Applications built with Blockchain technology do not require users to trust developers with personal informations or funds \cite{blockchain3}, i.e. the need of an authority or an institution such as a bank,which acts as a middleman to make a transaction, is no longer needed. Moreover, buyers and sellers can directly transact with each other with the benefit of reducing the costs of transacting.
 %https://www2.deloitte.com/nl/nl/pages/innovatie/artikelen/blockchain-technology-9-benefits-and-7-challenges.html
-\subsection{Benefits of Blockchain Technology}
-Every technology that is centralized offers somewhere a point of failure which might be exploited by attackers and nowadays, banks are normally used by most people as a trusted middleman in order to make transaction.
-Thanks to its decentralizations, blockchain will avoid the need of a trusted middleman to make transaction by connecting directly buyers and sellers.
-%TODO
-
-%http://www.huffingtonpost.com/ameer-rosic-/5-blockchain-applications_b_13279010.html
-\subsection{Blockchain applications}
-The most famous application of blockchain is in online trades where it gets used for transfering a cryptovalue, bitcoins.
-%TODO 
-
-
-%https://www.shapingtomorrow.com/home/alert/665529-Future-of--Blockchain
-%http://usblogs.pwc.com/emerging-technology/the-blockchain-problem-is-a-trust-problem/
-\subsection{Future of Blockchain}
-some text\cite{blockchain9}, other text \cite{blockchain10}
-%TODO 
-
-%https://www.taylorwessing.com/download/article-how-secure-is-block-chain.html
-\subsection{Blockchain security}
-some text\cite{blockchain11}
-%TODO 
-
-
 \section{Smart Contract: Introduction}
 \subsection{Smart Contract: a self-executing contractual agreements}
 %definition founded here: https://www.youtube.com/watch?v=FkeLDPZ-v8g&t=134s
@@ -79,7 +47,7 @@ A \textit{traditional contract} is normally an agreement, which consciously and 
 
            \begin{figure}[H]
          \begin{center}
-         \includegraphics[scale=0.3]{Talk3/img/tradVSsmart}
+         \includegraphics[scale=0.35]{Talk3/img/tradVSsmart}
          \end{center}
          \caption{A traditional vs. a Smart Contract, from \cite{SC2}.}
          \label{label}
@@ -104,7 +72,7 @@ cita\cite{SC2}
 \subsection{Smart Contracts and Blockchain technology}
            \begin{figure}[H]
          \begin{center}
-         \includegraphics[scale=0.4]{Talk3/img/sc_blockchain}
+         \includegraphics[scale=0.45]{Talk3/img/sc_blockchain}
          \end{center}
          \caption{Decentralized system with smart contracts, from \cite{paper3}}
          \label{label}
@@ -113,9 +81,10 @@ cita\cite{SC2}
 \subsection{Ethereum: a public blockchain-based platform}
 Ethereum is a platform for the publication and the execution of Smart Contracts. It is decentralized \cite{paper2} and executes the Smart Contracts as programmed from their creator.
 It has a own cryptovalue called Ether which is used as payment for the execution of Smart Contracts.
-At the 24th of April 2017, the value of the currency compared to Bitcoins corresponded to CONTINUA
+At the 24th of April 2017, the value of the currency compared to Bitcoins corresponded to 25 ETH to 1 BTC, which might not seem a lot but when compared to a fiat currency, like the swiss currency, it would correspond to circa 1242 CHF.\\
+This high value of Bitcoins can be attributed to its monetary inflation from 2010 up until today (the 24th of May) \cite{BitcoinsPriceCharts}. Indeed, this currency growth, not being conditioned by macroeconomic factors (such as authorities), could not have been foreseen. \\
 Ethereum's contracts are written in Solidity, which is an objected-oriented language programming language, similar to Java, and it is exclusively designed for coding Smart Contracts.
-The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytecode) and deployed finally on the Ethereum blockchain 
+The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytecode) and deployed finally on the Ethereum blockchain \cite{paper2}. 
 
 \subsection{Smart Contract's properties in Ethereum}
 In this section we will have a look at the key components that can be found inside a Smart Contract.
@@ -155,7 +124,7 @@ We now consider only a streamlined version of the DAO attack, also called \textb
 The first thing the attacker has to do is to publish a \textbf{Mallory} Contract (as shown below): 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.45]{Talk3/img/dao1}
+\includegraphics[scale=0.50]{Talk3/img/dao1}
 \end{center}
 \caption{Dao Attack: the Mallory contract}
 \label{label}
@@ -166,7 +135,7 @@ After publishing the contract, the hacker sends some Ether to Mallory and automa
 The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function written in the \textbf{SimpleDAO}\footnote{The whole Smart Contract's code is findable here: http://co2.unica.it/ethereum/attacks.html\#simpledao} contract (figure below), which is in charge of sending an amount of Ether to a specified public address. 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.45]{Talk3/img/dao2}
+\includegraphics[scale=0.55]{Talk3/img/dao2}
 \end{center}
 \caption{Dao Attack: the SimpleDAO contract}
 \label{label}
@@ -197,7 +166,7 @@ The Multiplayer Attack is based on a game between two players. The rules are rea
 \\Now, let's have a closer look at the interesting part of the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{Talk3/img/oae1}
+\includegraphics[scale=0.40]{Talk3/img/oae1}
 \end{center}
 \caption{Odd and Even contract}
 \label{label}
@@ -223,7 +192,7 @@ The figure below shows a simplified rappresentation of the bug mentioned above \
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{Talk3/img/rubixi}
+\includegraphics[scale=0.30]{Talk3/img/rubixi}
 \end{center}
 \caption{Faulty Rubixi contract}
 \label{label}
@@ -247,7 +216,7 @@ When a new King gets crowned, the claimprice is calculated and set as new prize 
 For a proper explanation of this attack, consider the following \textbf{KotET} contract, which implements a simplified version of the original contract\footnote{the whole code can be found here: http://co2.unica.it/ethereum/attacks.html\#kotet}.   
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{Talk3/img/kot}
+\includegraphics[scale=0.55]{Talk3/img/kot}
 \end{center}
 \caption{First KotET contract}
 \label{label}
@@ -268,7 +237,7 @@ For example, if a miner would have a very expensive fallback function, an except
 For making our explanation easier to understand, consider also in this case the following semplified \textbf{KotET} contract: 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{Talk3/img/kot2}
+\includegraphics[scale=0.35]{Talk3/img/kot2}
 \end{center}
 \caption{Second KotET contract}
 \label{label}
@@ -293,10 +262,10 @@ At this point, nobody else can get her crown, since every time \textbf{KotET} tr
 \subsection{Govern-Mental: Introduction}
 Govern-Mental is once again based on the ponzi scheme explained before. But before getting into the attack, we will explain you how this scheme works in this case.\\
 To take part in it, a participant must send a  certain amount of ether to the contract. When nobody joins it for at least twelve hours, the last contributor is going to take all the ether contained in the contract, except of course for a small fee which is going to be kept by the owner of the contract.
-Once the timer on the jackpot runs out, the two arrays are cleared as follows:\cite{paper2}.
+Once the timer on the jackpot runs out, the two arrays are cleared as follows \cite{paper2}:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{Talk3/img/Governmental1Array}
+\includegraphics[scale=0.30]{Talk3/img/Governmental1Array}
 \end{center}
 \caption{Clearing the two arrays}
 \label{label}
@@ -305,7 +274,7 @@ A problem that arose had to do with the size of the two arrays. At some point th
 To better understand the attacks that will come, we are first going to introduce you a simplified example of the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{Talk3/img/GovernmentalContract}
+\includegraphics[scale=0.35]{Talk3/img/GovernmentalContract}
 \end{center}
 \caption{Clearing the two arrays}
 \label{label}
@@ -317,7 +286,7 @@ Obviously, the attacker in this case is going to be the owner of the contract be
 The first thing to do is to publish an Attack contract like the following one:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.3]{Talk3/img/GovernmentAtttackContract}
+\includegraphics[scale=0.35]{Talk3/img/GovernmentAtttackContract}
 \end{center}
 \caption{Attacker contract}
 \label{label}
@@ -330,11 +299,14 @@ The amount of the balance in the contract increases upon each played round becau
 The vulnerability used in this attack has already been fixed by an hard-fork of the Ethereum blockchain \cite{hardfork}. The fork changed the cost of several EVM instructions, and re- defined the way to compute the gas consumption of call and delegatecall\cite{paper2}.
 This simply means that the cost for a call of an external function has been increased. This makes impossible to fill the stack and any attempt in doing so will throw an out-of-gas exception
 \subsection{Govern-Mental: Second Attack}
-In the second attack, the attacker is no longer the owner of the contract but instead is going to be a miner.\\
-Miners can decide which transactions to include and which not to as well as preserve the order or not. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.
+In the second attack, the attacker is no longer the owner of the contract but instead it is going to be a miner.\\
+Miners can decide which transactions to include and which not to as well as preserve the order or not\cite{paper2}. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.\\
+So far, there are not known solutions to patch the vulnerability exploited in this attack
+
 
 \subsection{Govern-Mental: Third Attack}
 As seen in the second attack, the attacker is going to be again a miner. When the miner succeeds in joining the scheme, he can alter the timestamp of the new block so that it results in at least one minute later than the timestamp of the current block. Once he manages to publish the new block with the counterfeit timestamp, he will win the jackpot.
+The new timestamp can be chosen with a certain degree of arbitrariness\cite{paper2}. In a previous version the choice was possible within an interval of circa 900 seconds\cite{BlockProtocol}, which was enough to allow some alterations of the timestamp. In more recents versions the interval has been substantially decreased to a few seconds\cite{paper2} in order to put some obstructs to attackers, despite that a real solution for this vulnerability has not been discovered yet.
 %http://usblogs.pwc.com/emerging-technology/tag/blockchain/
 %http://www.coindesk.com/blockchain-smart-contracts-looming-challenges/
 \section{Security Challenges in Smart Contract and Blockchain Technology}
@@ -365,7 +337,7 @@ However, smart contracts can only be executed in a sequential procedure \cite{ch
 You can imagine that there is an analogy between operations and incoming transactions. If the order of two incoming transactions within a block on the blockchain may be reversed or the second one early processed, the execution of the smart contract may be error-prone. \\
 This kind of process, which doesn't allow parallel processing can cause some nodes backlogs and so implies delays in the smart contract execution \cite{challenge1}. \\
 Indeed, on \textit{Ethereum} if a miner may not able to compute its content in a reasonable time before a new block comes, the whole block execution may be damaged \cite{challenge1}. \\
-Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethereum}, the risk of losing some information or that a node drown under a backlog of work\footnote{accumulation over time of work waiting to be done or orders to be fulfilled \cite{challenge4}} is  relatively high.
+Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethereum}, the risk of losing some information or that a node drown under a backlog of work\footnote{accumulation over time of work waiting to be done or orders to be fulfilled \cite{challenge4}} is relatively high.
 
 
 
@@ -453,6 +425,10 @@ Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethere
 
 \bibitem{hardfork}\emph{Announcement of imminent hard fork for EIP150 gas cost changes.}\url{https://blog.ethereum.org/2016/10/13/announcement-imminent-hard-
 fork-eip150-gas-cost-changes/} (last accessed Mai 2017)
+
+\bibitem{BlockProtocol}\emph{Block Protocol 2.0.}\url{https://github.com/ethereum/wiki/wiki/Block-Protocol-2.0#block-validation-algorithm} (last accessed Mai 2017)
+
+\bibitem{BitcoinsPriceCharts}\emph{Bitcoins price chart history}\url{https://99bitcoins.com/price-chart-history/} (last accessed Mai 2017)
 
 
 
