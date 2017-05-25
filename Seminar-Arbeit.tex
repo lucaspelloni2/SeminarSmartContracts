@@ -258,6 +258,7 @@ This contract Mallory has a fallback, which just throws an exception. The hacker
 At this point, nobody else can get her crown, since every time \textbf{KotET} tries to send the compensation to Mallory, her fallback throws an exception, preventing the coronation to succeed. 
 
 \subsubsection{Possible solution}
+A way to solve this attack is to handle exceptions in an uniformly way. This means, that if the fallback function raises an exception the \textbf{whole transaction} must \textbf{always }be reverted and not only a sequence of nested calls \cite{paper2} between two functions. An unequal treatment in handling exception may cause attacks for smart contracts and we can conclude, in accord to a quantitative analysis published on \cite{anal}, that 28\% of Smart Contracts don't check the return code of \textbf{call/send} functions. 
 
 \subsection{Govern-Mental: Introduction}
 Govern-Mental is once again based on the ponzi scheme explained before. But before getting into the attack, we will explain you how this scheme works in this case.\\
@@ -301,7 +302,7 @@ This simply means that the cost for a call of an external function has been incr
 \subsection{Govern-Mental: Second Attack}
 In the second attack, the attacker is no longer the owner of the contract but instead it is going to be a miner.\\
 Miners can decide which transactions to include and which not to as well as preserve the order or not\cite{paper2}. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.\\
-So far, there are not known solutions to patch the vulnerability exploited in this attack
+So far, there are not known solutions to patch the vulnerability exploited in this attack.
 
 
 \subsection{Govern-Mental: Third Attack}
@@ -415,7 +416,9 @@ Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethere
 
 
 \bibitem{challenge4}\emph{Wikipedia: Backlog.}\url{https://en.wikipedia.org/wiki/Backlog} (last accessed April 2017)
-\bibitem{SC23}\emph{.}\url{url} (last accessed March 2017)
+
+
+\bibitem{anal}\emph{Scanning Live Ethereum Contracts for the "Unchecked-Send" Bug.}\url{http://hackingdistributed.com/2016/06/16/scanning-live-ethereum-contracts-for-bugs/} (last accessed March 2017)
 \bibitem{SC24}\emph{title.}\url{url} (last accessed April 2017)
 
 
