@@ -2,12 +2,9 @@
 \markboth{Security Challenges in Smart Constracts}{}
 \chaptauthors{Lucas Pelloni and Ile Cepilov}
 
-\Kurzfassung{%
-%Gli Smart Contract oggi giorno rappresentano una valida alternativa a contratti tradizionali %e possono automatizzare l'agreement di termini legali tra più parti. 
-%La loro efficacia è garantita sia da una solida piattagorma sulla quali essi vengono %eseguiti, sia da una nuova tecnologia sempre più in ascesa come la Blockchain. 
-%Tuttavia, nonostante gli sforzi degli sviluppatori di scrivere codice sicuro e "impenetrabile" agli occhi degli hackers, si sono verificati nel corso degli ultimi tempi numerosi attacchi hacker, che hanno evidenziato diverse falle all'interno del codice di questi contratti. 
-%L'impiego degli Smart Contract all'interno della vita quotidiana appare ancora lontano. Sia a a causa di una diffusione ancora di nicchia della sopracitata Blockchain technology, che di un trade-off tra il "fidarsi di una softaware o di una persona". 
-It fits pretty much on one page and is definitely not longer.}
+\Kurzfassung{Nowadays, Smart Contracts may represent a suitable alternative to traditional ones. Indeed, they aim to automatize the execution of the terms of an agreement, replacing the need of an additional middleman, who verifies these terms between buyer and sellers. \\
+However, despite the efforts provided by Ethereum developers to write safe and "impenetrable" code, there have been lately numerous hacker attacks that have highlighted several flaws within the code of these contracts. \\
+The use of Smart Contract in the everyday life is still far away. Because of a still-niche spread of the Blockchain technology, the trade-off between "trusting a software or a person" remains a key component for using such a new digitalized law.}
 
 \newpage
 
@@ -20,12 +17,28 @@ It fits pretty much on one page and is definitely not longer.}
 % PWC: PAPER DA PRENDERE ASSOLUTAMENTE http://www.pwc.ch/en/2017/pdf/pwc_blockchain_opportunity_for_energy_producers_and_consumers_en.pdf
 
 
+\section{Introduction}
+In this paper, we will have a depth view of the main attacks regarding smart contracts and ethereum.
+A small explanation of the blockchain will be given at the begining of the paper  to help the reader follow and understand the concepts explained later.
+After that, some main differences between the traditional contracts that everybody knows and the smart ones will be highlighted in order to state whether this new technology is really needed or the "old" is still valid in such a digitalized world.
+Following, the major attacks and vulnerabilities exploited by attackers which affected Smart Contracts are going to be explained. Even though some attacks are no longer possible, some flow are still exploitable and due to its novelty a lot of them are not yet discovered. 
+Afterwards, we will explain the main security challenges for Ethereum, the platform where Smart Contracts are executed and finally we will a general conclusion.
+
+\section{Related Work}
+In the following, we summarize the main research on Smart Contracts, their  vulnerabilities and the attacks correlated to them. Afterwards, we will also present some papers which describe potential solutions for these attacks. So finally, we will summarize the main resarch on \textit{Ethereum} and their security challanges. \\
+An overview of the recent research in the field about Smart Contracts's attacks and their vulnerabilities exploited by the attackers can be found in the survey by Atzei \textit{et al.} \cite{paper2}. Potential solutions resp. contermeasures for the different attacks we will present on the following sections, can be found here \cite{ paper2, ok, hardfork, timmedCommitments1, koetXD}. \\
+An overview about Ethereum and how Smart Contracts are executed on this platform can be found in the paper by Luu \textit{et al.} \cite{paper1}. Finally, a description of a future approach for trying to reduce attacks on Ethereum is presented by Vitalik on his personal blog on \cite{challenge2, challenge3}. 
+
+
+
+
+
 \section{Blockchain Technology}
 \subsection{Definition of Blockchain}
 A blockchain is like a distributed database which constantly keeps a list of transaction or records, that have ever been executed, called usually blocks. Every record contains a reference to its predecessor and a timestamp \cite{wikipedia1}.
 Data in a record cannot be changed due to its design. This makes them tampering-proof as well as a very good source of trust for the near future \cite{blockchain3}.
 The blockchain works and is maintained by the entire community, which keeps and verifies all records and acts like a node of a peer-to-peer network, making the need of a thirty part trust organisation useless \cite{blockchain0}.
-\subsubsection{Source of Trust}
+\subsection{Source of Trust}
 A blockchain is based on a very powerful cryptographic concept. Original pieces of information are converted into code thanks to the application of a hash function. In this way, any attempt to attack it will result in a different hash value which will not allow any further modification.
 %http://www.investopedia.com/terms/b/blockchain.asp
 Thus, the blockchain might become a global decentralised source of trust \cite{blockchain3} for all parties involved in the business.\\
@@ -35,25 +48,22 @@ Applications built with Blockchain technology do not require users to trust deve
 \section{Smart Contract: Introduction}
 \subsection{Smart Contract: a self-executing contractual agreements}
 %definition founded here: https://www.youtube.com/watch?v=FkeLDPZ-v8g&t=134s
-A Smart Contract is a computer protocol (or piece of software) that includes, simplifies and verifies the negotiating terms for the execution of a contract. They do not contain a formal contract clause but they usually simulate it \cite{SC1}.
-Smart Contracts are encrypted and implemented as programs running on the nodes of a custom public blockchain network, which is not the same used for Bitcoins transactions. Thanks to their encryption, an external trusted authority is no longer needed and thanks to the redundancy of the blockchain across the network, there will not be any loss of data or integrity in case of a system failure.
-If a new Smart Contract has to be added to the blockchain, the miners, which are the actual nodes of the peer to peer network, have first to validate its execution and only once it has been validated by the majority of them, it can be actually appended to the blockchain \cite{SC2}.
-
+A Smart Contract is a computer protocol (or piece of software) that stores rules and includes, simplifies and verifies the negotiating terms for the execution of a contract. They run on the blockchain \cite{paper3} and they do not contain a formal contract clause but they usually simulate it \cite{SC1}. Smart Contracts are encrypted and implemented as programs running on the nodes of a custom public blockchain network, which is not the same used for Bitcoins transactions. Thanks to their encryption, an external trusted authority is no longer needed and thanks to the redundancy of the blockchain across the network, there will not be any loss of data or integrity in case of a system failure.
 
 %https://bitsonblocks.net/2016/02/01/a-gentle-introduction-to-smart-contracts/%
 %http://www.businessdictionary.com/definition/legally-binding.html
-\subsubsection{Traditional vs. Smart Contract}
-A \textit{traditional contract} is normally an agreement, which consciously and legally bind two or more parties, who accept the terms and conditions contained inside the contract \cite{SC12,SC13}. For the execution of a \textit{traditional contract} there is always a need of a middleman (\textit{e.g. a lawyer}), who verifies and checks the agreed terms within the contract. However, this kind of a deal can imply excessive costs, may be prone to delays or might cause misunderstandings between the parties. 
-
+\subsection{Traditional vs. Smart Contract}
+A \textit{traditional contract} is normally an agreement, which consciously and legally bind two or more parties, who accept the terms and conditions contained inside the contract after different rounds of negotiations \cite{SC12,SC13}. For the execution of a \textit{traditional contract} there is always a need of a middleman (\textit{e.g. a lawyer}), xwho verifies and checks the agreed terms within the contract. However, this kind of a deal can imply excessive costs, may be prone to delays or might cause misunderstandings between the parties. 
            \begin{figure}[H]
          \begin{center}
-         \includegraphics[scale=0.35]{Talk3/img/tradVSsmart}
+         \includegraphics[scale=0.25]{Talk3/img/tradVSsmart}
          \end{center}
          \caption{A traditional vs. a Smart Contract, from \cite{SC2}.}
          \label{label}
        \end{figure}
-cita\cite{SC2}
-
+A Smart Contract, as mentioned in the previous section, is a piece of Software that aims to automatize the execution of the terms of an agreement within the contract.
+In general, there are two schools of thought about the future applications of Smart Contracts \cite{future}. On one side, the \textit{tech industry} argues that Smart Contracts are the future of the digitized law and will permit people to easily use them, reducing costs and delays in self-executing the terms of a contract. \\
+On the other side, there are other people who argues that Smart Contract will never completely replace the traditional ones. This because, Smart Contracts are suitable for "fast-transaction", which are simple to negotiate, but for high value deals, where the intervention of a \textit{human} for legal recourses is necessary, Smart Contracts are not yet a viable alternative.
 
 
 
@@ -72,11 +82,26 @@ cita\cite{SC2}
 \subsection{Smart Contracts and Blockchain technology}
            \begin{figure}[H]
          \begin{center}
-         \includegraphics[scale=0.45]{Talk3/img/sc_blockchain}
+         \includegraphics[scale=0.50]{Talk3/img/sc_blockchain}
          \end{center}
          \caption{Decentralized system with smart contracts, from \cite{paper3}}
          \label{label}
        \end{figure}
+
+As shown in the figure above, Smart Contracts are executed and validated on the Blockchain. First of all, the code of a Smart Contract has to be encrypted \cite{yo} and stored into a \textit{block}. 
+After that, the miners, which are the actual nodes of the peer to peer network, have first to validate its execution and only once it has been validated by the majority of them, it can be actually appended to the blockchain \cite{SC2}. 
+Everyone can just create a new contract by posting a new transaction to the Blockchain \cite{paper3}.
+
+Usually the interaction between Blockchain and Smart Contracts works as follows \cite{paper3}: 
+
+\begin{enumerate}
+\item A storage file, which contains "log informations" about the contract is stored on the blockchain 
+\item The code of the contract can be executed by a network of miners only when the majority of them have conscientiously validated the contract's content
+\item The contract's code is triggered either from a user or from another contract
+\item When a user wants to run a specific contract, he has to include the message data and the address of the contract in the transaction   
+\item While a contract executes its code it may need to write to or read from its storage file some data 
+\item A contract is able to receive or send money, updating its internal balance
+\end{enumerate}
 
 \subsection{Ethereum: a public blockchain-based platform}
 Ethereum is a platform for the publication and the execution of Smart Contracts. It is decentralized \cite{paper2} and executes the Smart Contracts as programmed from their creator.
@@ -90,14 +115,14 @@ The Smart Contracts are then compiled in the Ethereum virtual machine (EVM bytec
 In this section we will have a look at the key components that can be found inside a Smart Contract.
 A Smart Contract must always have a {\itshape contract address} 
 %PAPER 633.pdf% asddd
-which can be used to identify it. It may contain some amount of Ether (The virtual coin used in Ethereum) in its {\itshape balance} attribute.
+which can be used to identify it. It may contain some amount of Ether (The virtual coin used in Ethereum) in its {\itshape balance} attribute \cite{paper1}.
 \\It has a very important function which does not take any parameter at all, i.e. the so called {\itshape Fallback} function(). This function will be triggered by default when a contract is invoked by a transaction.
-\\It is very important because, as we will see in the next sections, it has been exploited a lot in the most famous attacks.
-\\Of course, some more informations have to be stored in it, like who the sender is, the amount of Ether that is sent to the contract and some more info for the transaction. All this data are saved in a variable {\textit msg.}
+\\It is very important because, as we will see in the next sections, it has been exploited a lot in the most famous attacks \cite{paper2}. 
+\\Of course, some more informations have to be stored in it, like who the sender is, the amount of Ether that is sent to the contract and some more info for the transaction. All this data are saved in a variable \textit{msg} \cite{daje}. 
 %http://www.coinfox.info/news/reviews/5195-ethereum-and-smart-contracts-in-depth
-\\Now we would like to introduce the Gas system. The gas is used to express the cost of a computation done by the EVM, which in turn will be payed in the currency (Ether). Even though the actual currency may variate, the price of the network resources (Gas) stays constant.
+\\Now we would like to introduce the Gas system. The gas is used to express the cost of a computation done by the EVM, which in turn will be payed in the currency (Ether). Even though the actual currency may variate, the price of the network resources (Gas) stays constant \cite{paper3}. 
 \\The gas is divided in three main component, {\textit the Gas Cost, the Gas Price and the Gas Limit.}
-\\The Gas Cost has a static value over time, whereas the Gas Price, measured in ether, changes accordingly to the cryptocurrency's fluctuation. But like we said before, the real cost of the Gas should remain the same, which means that an increase of the price of ether will have as a consequence a drop down of the Gas Price.
+\\The Gas Cost has a static value over time, whereas the Gas Price, measured in ether, changes accordingly to the cryptocurrency's fluctuation. But like we said before, the real cost of the Gas should remain the same, which means that an increase of the price of ether will have as a consequence a drop down of the Gas Price \cite{paper1}. 
 \\When somebody sends a transaction to invoke a contract, he has to specify hos much Gas he/she is willing to provide for its execution (Gas Limit). 
 %To run a particular transaction or program (called “contract”), one has to pay an amount of Gas (called Gas %Fee) to miners. There is a list of fixed default fees for particular operations 
 
@@ -105,10 +130,9 @@ which can be used to identify it. It may contain some amount of Ether (The virtu
 
 
 \subsubsection{Solidity: a typed JavaScript-like language}
-TODO: CONTROLLARE LA VALIDITA 
-As introduced in Ethereum, Solidity is a object-oriented programming language for writing smart contracts and it can be used on various blockchain even though it is used as the primary language on the Ethereum platform.
+As introduced in Ethereum, Solidity is a object-oriented programming language for writing smart contracts and it may be used on various blockchain even though it is used as the primary language on the Ethereum platform.
 %https://en.wikipedia.org/wiki/Solidity
-\\It was first proposed in August 2014 by Gavin Wood and developed later by the Ethereum project's Solidity team (CITA MEEENCHIA)
+\\It was first proposed in August 2014 by Gavin Wood and developed later by the Ethereum project's Solidity team \cite{solidity}.
 
 \section{Smart Contract attacks}
 \subsection{DAO Attack}
@@ -124,7 +148,7 @@ We now consider only a streamlined version of the DAO attack, also called \textb
 The first thing the attacker has to do is to publish a \textbf{Mallory} Contract (as shown below): 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.50]{Talk3/img/dao1}
+\includegraphics[scale=0.55]{Talk3/img/dao1}
 \end{center}
 \caption{Dao Attack: the Mallory contract}
 \label{label}
@@ -135,7 +159,7 @@ After publishing the contract, the hacker sends some Ether to Mallory and automa
 The \textbf{Mallory}'s fallback, in turn, calls the \textbf{withdraw} function written in the \textbf{SimpleDAO}\footnote{The whole Smart Contract's code is findable here: http://co2.unica.it/ethereum/attacks.html\#simpledao} contract (figure below), which is in charge of sending an amount of Ether to a specified public address. 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.55]{Talk3/img/dao2}
+\includegraphics[scale=0.60]{Talk3/img/dao2}
 \end{center}
 \caption{Dao Attack: the SimpleDAO contract}
 \label{label}
@@ -156,17 +180,16 @@ This kind of loop goes on until one of the following conditions is satisfied: \\
 \subsubsection{No solutions, only countermeasures}
 Sadly, there was a lack of solutions for stopping this attack. The only possible choice was to suppress the attack and the community was faced with two of them.
 \\A first choice was to do a {\textit Soft fork} which consisted in freezing the transaction that belonged to the attacker. But not the majority of the whole community agreed with it and more important, the transactions that were used by the attacker in order to move the stolen funds, would have ignored and not reverted and therefore the miners would not have been paid
-\\Moreover, in doing so, a potential DOS attack would have been introduced. 
-(cit:)
+\\Moreover, in doing so, a potential DOS attack would have been introduced \cite{ok}. 
 %https://steemit.com/crypto-news/@help-yourself/the-dao-soft-fork-solution-has-a-potential-dos-vector
 Specifically, an attacker can flood the network with transactions that execute difficult computation, and end by performing an operation on the DAO contract. Miners running the soft fork would end up having to execute, and then subsequently discard, such contracts without collecting any fees.
-\\Therefore a {\textit Soft fork} was proposed and approved on the 19th of July. Its intention was to put into a new refund Smart Contract all the ether taken by the attacker during the attack. The refund Smart Contract would have only one functions withdraw allowing the poor victims get back their stolen funds.
+\\Therefore a \textit{Soft fork} was proposed and approved on the 19th of July. Its intention was to put into a new refund Smart Contract all the ether taken by the attacker during the attack. The refund Smart Contract would have only one functions withdraw allowing the poor victims get back their stolen funds.
 \subsection{MultiPlayer Attack}
 The Multiplayer Attack is based on a game between two players. The rules are really simple, each player who joins the game has to chose a number, once both player have chosen a number, the sum of the number is calculated and if the result is even the first player wins, if the sum is odd the second one wins.
 \\Now, let's have a closer look at the interesting part of the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.40]{Talk3/img/oae1}
+\includegraphics[scale=0.50]{Talk3/img/oae1}
 \end{center}
 \caption{Odd and Even contract}
 \label{label}
@@ -192,7 +215,7 @@ The figure below shows a simplified rappresentation of the bug mentioned above \
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.30]{Talk3/img/rubixi}
+\includegraphics[scale=0.40]{Talk3/img/rubixi}
 \end{center}
 \caption{Faulty Rubixi contract}
 \label{label}
@@ -216,7 +239,7 @@ When a new King gets crowned, the claimprice is calculated and set as new prize 
 For a proper explanation of this attack, consider the following \textbf{KotET} contract, which implements a simplified version of the original contract\footnote{the whole code can be found here: http://co2.unica.it/ethereum/attacks.html\#kotet}.   
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.55]{Talk3/img/kot}
+\includegraphics[scale=0.60]{Talk3/img/kot}
 \end{center}
 \caption{First KotET contract}
 \label{label}
@@ -229,7 +252,7 @@ After that, the attacker could easily withdraw the compensation accumulated in t
 
 %cita questo: https://www.kingoftheether.com/contract-safety-checklist.html
 \subsubsection{Possible solution}
-The solution adapted by Ethereum to avoid future attacks is also known as the "failed sends" solution (cita). It consists of an attachment of a reasonable amount of gas with each transaction involving two or more parties (cita ancora). 
+The solution adapted by Ethereum to avoid future attacks is also known as the "failed sends" solution. It consists of an attachment of a reasonable amount of gas with each transaction involving two or more parties \cite{koetXD}. 
 For example, if a miner would have a very expensive fallback function, an exception should be thrown and the whole transaction should be reverted. \\ For testing the accuracy of this solution Ethereum runned several functional tests\footnote{the simulated test cases described in the Ethereum on-chain report can be found here: https://github.com/kieranelby/KingOfTheEtherThrone/blob/v1.0/tests/onchain-test-report.md}, trying to cover the largest number of possible scenarios. 
 
 
@@ -237,7 +260,7 @@ For example, if a miner would have a very expensive fallback function, an except
 For making our explanation easier to understand, consider also in this case the following semplified \textbf{KotET} contract: 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.35]{Talk3/img/kot2}
+\includegraphics[scale=0.45]{Talk3/img/kot2}
 \end{center}
 \caption{Second KotET contract}
 \label{label}
@@ -248,7 +271,7 @@ Moreover, the second contract checks the return code of the \textbf{call} functi
 Let's suppose that there would be someone, who wants to attack this contract publishing the following \textbf{Mallory} contract: 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{Talk3/img/kot_mallory}
+\includegraphics[scale=0.55]{Talk3/img/kot_mallory}
 \end{center}
 \caption{The KotET Mallory contract}
 \label{label}
@@ -260,13 +283,13 @@ At this point, nobody else can get her crown, since every time \textbf{KotET} tr
 \subsubsection{Possible solution}
 A way to solve this attack is to handle exceptions in an uniformly way. This means, that if the fallback function raises an exception the \textbf{whole transaction} must \textbf{always }be reverted and not only a sequence of nested calls \cite{paper2} between two functions. An unequal treatment in handling exception may cause attacks for smart contracts and we can conclude, in accord to a quantitative analysis published on \cite{anal}, that 28\% of Smart Contracts don't check the return code of \textbf{call/send} functions. 
 
-\subsection{Govern-Mental: Introduction}
+\subsection{Govern-Mental}
 Govern-Mental is once again based on the ponzi scheme explained before. But before getting into the attack, we will explain you how this scheme works in this case.\\
 To take part in it, a participant must send a  certain amount of ether to the contract. When nobody joins it for at least twelve hours, the last contributor is going to take all the ether contained in the contract, except of course for a small fee which is going to be kept by the owner of the contract.
 Once the timer on the jackpot runs out, the two arrays are cleared as follows \cite{paper2}:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.30]{Talk3/img/Governmental1Array}
+\includegraphics[scale=0.40]{Talk3/img/Governmental1Array}
 \end{center}
 \caption{Clearing the two arrays}
 \label{label}
@@ -275,19 +298,19 @@ A problem that arose had to do with the size of the two arrays. At some point th
 To better understand the attacks that will come, we are first going to introduce you a simplified example of the contract:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.35]{Talk3/img/GovernmentalContract}
+\includegraphics[scale=0.50]{Talk3/img/GovernmentalContract}
 \end{center}
-\caption{Clearing the two arrays}
+\caption{Governmental Contract}
 \label{label}
 \end{figure}
 The Governmental contract takes the investments and it pays back only the player who is the last for at least one minute. A player must invest at least half of the jackpot (line 13), which grows with each new investment, to join the scheme. Anyone can invoke \textit{resetInvestment()}, which pays the half of the invested total (the jackpot) to the winner (line 17), and sends as usual the remaining ether to the owner of the contract.
-\subsection{Govern-Mental: First Attack}
+\subsubsection{Govern-Mental: First Attack}
 This first attack consists in keeping all the ether of the scheme in the contract. To achieve this intent, the send function (line 22) has to fail so that the real winner never gets back his money (the jackpot).
 Obviously, the attacker in this case is going to be the owner of the contract because at the end he can take all the money.
 The first thing to do is to publish an Attack contract like the following one:
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.35]{Talk3/img/GovernmentAtttackContract}
+\includegraphics[scale=0.50]{Talk3/img/GovernmentAtttackContract}
 \end{center}
 \caption{Attacker contract}
 \label{label}
@@ -299,13 +322,13 @@ The amount of the balance in the contract increases upon each played round becau
 \subsubsection{Possible solution}
 The vulnerability used in this attack has already been fixed by an hard-fork of the Ethereum blockchain \cite{hardfork}. The fork changed the cost of several EVM instructions, and re- defined the way to compute the gas consumption of call and delegatecall\cite{paper2}.
 This simply means that the cost for a call of an external function has been increased. This makes impossible to fill the stack and any attempt in doing so will throw an out-of-gas exception
-\subsection{Govern-Mental: Second Attack}
+\subsubsection{Govern-Mental: Second Attack}
 In the second attack, the attacker is no longer the owner of the contract but instead it is going to be a miner.\\
 Miners can decide which transactions to include and which not to as well as preserve the order or not\cite{paper2}. In doing so, they can move their transactions, be the first one to play a suitable amount and prevent someone else to join the scheme, ending up by being the last player in a round.\\
 So far, there are not known solutions to patch the vulnerability exploited in this attack.
 
 
-\subsection{Govern-Mental: Third Attack}
+\subsubsection{Govern-Mental: Third Attack}
 As seen in the second attack, the attacker is going to be again a miner. When the miner succeeds in joining the scheme, he can alter the timestamp of the new block so that it results in at least one minute later than the timestamp of the current block. Once he manages to publish the new block with the counterfeit timestamp, he will win the jackpot.
 The new timestamp can be chosen with a certain degree of arbitrariness\cite{paper2}. In a previous version the choice was possible within an interval of circa 900 seconds\cite{BlockProtocol}, which was enough to allow some alterations of the timestamp. In more recents versions the interval has been substantially decreased to a few seconds\cite{paper2} in order to put some obstructs to attackers, despite that a real solution for this vulnerability has not been discovered yet.
 %http://usblogs.pwc.com/emerging-technology/tag/blockchain/
@@ -342,11 +365,17 @@ Since, as mentioned before, every 12 seconds a new block comes in \textit{Ethere
 
 \subsection{Execution of transaction not set in stone}
 As we have seen in some attacks, miners are sometimes free to chose what to do. This means that even though a user attaches a high fee to his transaction, it might still be ignored by miners and thus not validated and executed.\\
-Due to this problem, some applications of smart contracts in other context may not be possible.
+This means, that nobody can have the guarantee that miners will include the transaction in a block for validating it.
+Due to this problem, some applications of smart contracts in other context may not be possible (e.g.?????). 
+This remains an open challenge for the whole blockchain technology. 
+
+\section{Conclusions}
+
+
 
 
 \begin{thebibliography}{99}
-\bibitem{ethereum1}\emph{Ethereum Homestead Release.} \url{https://www.ethereum.org} (last accessed March 2017)
+\bibitem{ethereum1}\emph{Ethereum Homestead Release.} , \url{https://www.ethereum.org} (last accessed March 2017)
 \bibitem{wikipedia1}\emph{Blockchain} Wikipedia: \url{https://en.wikipedia.org/wiki/Blockchain} (last accessed February 2017)
 \bibitem{blockchain1}\emph{Know More About Blockchain.} \url{https://letstalkpayments.com/an-overview-of-blockchain-technology/} (last accessed March 2017)
 \bibitem{blockchain2}\emph{Blockchain Use Cases Part II.} \url{https://letstalkpayments.com/blockchain-use-cases-part-ii-non-financial-and-financial-use-cases/} (last accessed March 2017)
@@ -386,7 +415,6 @@ Due to this problem, some applications of smart contracts in other context may n
 
 \bibitem{SC6}\emph{A USD 50 Million Hack Just Showed That the DAO Was All Too Human}\url{https://www.wired.com/2016/06/50-million-hack-just-showed-dao-human/} (last accessed March 2017)
 
-\bibitem{SC7}\emph{title.}\url{http://www.clydeco.com/insight/article/ethereums-dao-attack-smart-contracts-and-blockchain-face-their-first-big-te} (last accessed April 2017)
 \bibitem{SC8}\emph{Ethereum's DAO attack: smart contracts and blockchain face their first big test}\url{http://www.clydeco.com/insight/article/ethereums-dao-attack-smart-contracts-and-blockchain-face-their-first-big-te} (last accessed April 2017)
 \bibitem{SC9}\emph{Digital currency Ethereum is cratering because of a USD 50 million hack}\url{http://uk.businessinsider.com/dao-hacked-ethereum-crashing-in-value-tens-of-millions-allegedly-stolen-2016-6} (last accessed April 2017)
 
@@ -435,6 +463,19 @@ fork-eip150-gas-cost-changes/} (last accessed Mai 2017)
 \bibitem{BlockProtocol}\emph{Block Protocol 2.0.}\url{https://github.com/ethereum/wiki/wiki/Block-Protocol-2.0#block-validation-algorithm} (last accessed Mai 2017)
 
 \bibitem{BitcoinsPriceCharts}\emph{Bitcoins price chart history}\url{https://99bitcoins.com/price-chart-history/} (last accessed Mai 2017)
+
+\bibitem{future}\emph{The future of Contracts}\url{https://www.contractworks.com/blog/smart-contracts-vs.-traditional-contracts} (last accessed Mai 2017)
+
+\bibitem{solidity}\emph{Wikipedia: Solidity}\url{https://en.wikipedia.org/wiki/Solidity} (last accessed Mai 2017)
+
+\bibitem{yo}\emph{Smart Contract Explained}\url{http://www.blockchaintechnologies.com/blockchain-smart-contracts} (last accessed Mai 2017)
+
+\bibitem{daje}\emph{Ethereum and smart contracts: In depth}, \url{http://www.coinfox.info/news/reviews/5195-ethereum-and-smart-contracts-in-depth} (last accessed Mai 2017)
+
+\bibitem{ok}\emph{The DAO soft fork solution has a potential DoS vector}, \url{https://steemit.com/crypto-news/@help-yourself/the-dao-soft-fork-solution-has-a-potential-dos-vector} (last accessed Mai 2017)
+
+\bibitem{koetXD}\emph{Contract Safety and Security Checklist}, \url{https://www.kingoftheether.com/contract-safety-checklist.html} (last accessed Mai 2017)
+
 
 
 
